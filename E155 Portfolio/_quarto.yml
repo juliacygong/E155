@@ -1,0 +1,39 @@
+project:
+  type: website
+
+website:
+  title: "Julia Gong E155 Portfolio"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Labs
+        menu:
+          - text: Lab 1
+            href: Labs/lab1/lab1.qmd
+          - text: Lab 2
+            href: Labs/lab2/lab2.qmd
+          - text: Lab 3
+            href: Labs/lab3/lab3.qmd
+          - text: Lab 4
+            href: Labs/lab4/lab4.qmd
+          - text: Lab 5
+            href: Labs/lab5/lab5.qmd
+          - text: Lab 6
+            href: Labs/lab6/lab6.qmd
+          - text: Lab 7
+            href: Labs/lab6/lab7.qmd
+      
+          
+
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true
+
+
+
