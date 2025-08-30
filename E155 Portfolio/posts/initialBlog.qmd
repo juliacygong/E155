@@ -1,0 +1,12 @@
+---
+title: "Initial Reflections"
+description: "Initial Fall E155 Blog"
+author: "Julia Gong"
+date: "8/29/2025"
+categories:
+    - reflection
+    - labreport
+draft: false
+---
+ Hey everyone! I am currently taking E155 this fall, and I am very excited about all the different labs and projects I will be working on. Over the course of this semester, I want to develop more skills and knowledge working with FPGAs and microcontrollers. I currently have more experience with digital design, so I also want to become more comfortable with analog design as well. 
+

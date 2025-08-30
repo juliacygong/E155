@@ -1,0 +1,10 @@
+---
+title: "E155 Resources"
+listing:
+    contents: Resources
+    sort: "date desc"
+    type: default
+
+---
+
+For external resources and information regarding my labs and project, please reference the E155 website [here](https://hmc-e155.github.io/). 
