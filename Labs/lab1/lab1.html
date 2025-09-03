@@ -40,6 +40,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-c1fac2584b48ed01fb6e278e36375074.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -147,8 +149,27 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#fpga-design-and-testing-methodology." id="toc-fpga-design-and-testing-methodology." class="nav-link" data-scroll-target="#fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</a>
+  <ul class="collapse">
+  <li><a href="#hardware-implementation" id="toc-hardware-implementation" class="nav-link" data-scroll-target="#hardware-implementation">Hardware Implementation</a></li>
+  <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
+  <ul class="collapse">
+  <li><a href="#testbench-simulation" id="toc-testbench-simulation" class="nav-link" data-scroll-target="#testbench-simulation">Testbench Simulation</a></li>
+  <li><a href="#oscilloscope-trace" id="toc-oscilloscope-trace" class="nav-link" data-scroll-target="#oscilloscope-trace">Oscilloscope Trace</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -172,8 +193,100 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In Lab 1, a <a href="https://hmc-e155.github.io/assets/doc/E155%20Development%20Board%20Schematic.pdf">development board</a> containing a FPGA (UPduino v3.1) and MCU (mikroBUS_Socket) was soldered together. The objective of the lab was to program the FPGA with Verilog code that responds to 4 input DIP switches and outputs a specific seven segment display as well as three LED displays. Other learning outcomes of the lab consisted of soldering, testing, and debugging circuits and Verilog.</p>
+</section>
+<section id="fpga-design-and-testing-methodology." class="level2">
+<h2 class="anchored" data-anchor-id="fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</h2>
+<p>The following tables from the lab instructions establish the relationship between the various inputs and outputs on the development board.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab1_table1.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: This table displays the inputs and outputs required in the FPGA design.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab1_table2.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: This table defines the relationship between the input DIP switches and the led outputs.</figcaption>
+</figure>
+</div>
+<p>The design was developed using a clock divider, boolean algebra, and multiplexers. The clock divider would create the 2.4Hz oscillating LED, the boolean algebra would select between the DIP switch input signals to determine the other LED outputs, and the multiplexers would select the corresponding segment outputs for the 7-segment display. The 7-segment displays all the hexidecimal digits distinctly.</p>
+<p>The 7-segment display has a common anode, meaning that the cathode must be grounding in order to cause the LED to turn on. Therefore, the Verilog code would send a “0” to turn on a segment and a “1” to turn off a segment.</p>
+<p>The outputs of the LEDs and 7-segment display would be verified using a self-checking testbench and an oscilloscope trace.</p>
+<section id="hardware-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="hardware-implementation">Hardware Implementation</h3>
+<p>The development board was assembled by soldering votage regulars, SMT components (resistors, capacitors, and LEDs), and various THT components. The schematic of the development board layout can be found <a href="https://hmc-e155.github.io/assets/doc/E155%20Development%20Board%20Schematic.pdf">here</a>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/board.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: This image depicts the completed development board.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/breadboard.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: This image depicts the physical breadboard layout of the 7-segment display.</figcaption>
+</figure>
+</div>
+<p>The resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the <a href="https://hmc-e155.github.io/assets/doc/MAN64x0%20Series.pdf">datasheet</a>. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate. ## Technical Documentation</p>
+<p>The source code from this lab can be found in my <a href="https://github.com/juliacygong/E155/tree/main/lab01">Github repository</a>. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.</p>
+</section>
+<section id="block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
+<p>The block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab1_blockdiagram.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: This image depicts the block diagram for the two Verilog modules</figcaption>
+</figure>
+</div>
+</section>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<p>The schmatic outlines the FPGA pin assigments for the 4 DIP switches, LEDs, and 7-segment display.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab1_schematic.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Figure 6: This image depicts the schematic for the FPGA and 7-segment display.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The results of this lab were verified using an automatic testbench simulation on Questa and an oscilloscope trace to verify the LED oscillating frequency. The video below shows the 7-segment display and LEDs responding to DIP switch inputs.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="images/lab1.mov"></video></div>
+<section id="testbench-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="testbench-simulation">Testbench Simulation</h3>
+<p><img src="images/lab1_waveforms.png" class="img-fluid"> <img src="images/lab1_results.png" class="img-fluid" alt="Figure 7: These images depict the testbench simulation results from Questa."></p>
+<p>The waveforms and transcript from the Questa simulation show that the expected outputs matched the outputs in the Verilog modules. All 16 tests were completed with no errors.</p>
+</section>
+<section id="oscilloscope-trace" class="level3">
+<h3 class="anchored" data-anchor-id="oscilloscope-trace">Oscilloscope Trace</h3>
+<p>The desired frequency for led[2] was 2.4Hz. The oscilloscope trace shows that the measured frequency for led[2] was 2.4Hz.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab1_oscilloscope.JPG" class="img-fluid figure-img"></p>
+<figcaption>Figure 8: This image depicts the oscilloscope trace of the LED. The frequency of the LED is shown on the bottom left.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The design meets all of the requirements for the lab. The development board is completely finished and put together, and the outputs for the 7-segment display and the LEDs all match the expected outputs. All the hexidecimal digits displayed on the 7-segment display are unique, and each segment has the same brightness.</p>
+<p>I spent a total number of 15 hours on this lab. A large amount of time in this lab was spent soldering as well as learning about the Lattice Radiant enviroment. There were many small errors I made along the way as well as specific details about Lattice Radiant that could have been helpful to know about in the Lab 1 description. A tip that could have been very helpful would be how to navigate the “FTDI Error” that occurs when trying to program the FPGA.</p>
+</section>
+<section id="ai-prototype-summary" class="level2">
+<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
+<p>For the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.</p>
+<p>The code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code.</p>
+<p>The transcript of the chat, including the code generated, can be found <a href="https://chatgpt.com/share/68b7add1-90c8-800e-8b15-9c966d711eab">here</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -576,6 +689,7 @@ ul.task-list li input[type="checkbox"] {
   });
   </script>
 </div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
 
 
 
