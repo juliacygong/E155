@@ -4,8 +4,7 @@
 // Date created: 8/28/25
 // This module creates a 7 segment display that displays a hexidecimal digital that is described by s[3:0]
 
-module seg_display(input logic clk,
-				   input logic [3:0] s,
+module seg_display(input logic [3:0] s,
 				   output logic [6:0] seg
 	);
 

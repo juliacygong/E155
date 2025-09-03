@@ -4,7 +4,7 @@
 // Date created: 8/28/25
 // This module instantiates the 7 segment display that displays a hexidecimal digital that is described by s[3:0] and turns on LEDs based on inputs as well
 module lab1_jg #(parameter N = 34'd859)
-		(input logic clk, reset, 
+		(input logic reset, 
 		 input logic [3:0] s,
 		 output logic [2:0] led,
 		 output logic [6:0] seg
@@ -24,7 +24,7 @@ HSOSC #(.CLKHF_DIV(2'b00))
      else            	counter <= counter + N;
    end
   
-  seg_display dut(clk, s, seg);
+  seg_display dut(s, seg);
   
    // Assign LED outputs
    assign led[0] = (s[0] ^ s[1]);

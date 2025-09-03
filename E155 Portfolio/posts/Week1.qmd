@@ -1,0 +1,11 @@
+---
+title: "Week 1 Reflections"
+description: "Lab 1 E155 Blog"
+author: "Julia Gong"
+date: "9/02/2025"
+categories:
+    - reflection
+    - labreport
+draft: false
+---
+This past week I was working on Lab 1 for E155. In this lab I learned a lot about soldering SMT components, which was very time consuming. Additionally, I became more familiar with the Lattice Radiant software environment while synthesizing and programming my FPGA. This lab also refreshed my memory for writing self-checking testbenches in Verilog as well as simulating my code in Questa. The logic for the LEDs and 7-segment display were very straight forward, so there was not too much debugging logic. The most common errors I ran into were syntax errors, files in the wrong directory, and the "FTDI Error" messages in Radiant. Overall, I am glad that all the components of my 7-segment display and LEDs are working!
