@@ -200,6 +200,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="fpga-design-and-testing-methodology." class="level2">
 <h2 class="anchored" data-anchor-id="fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</h2>
 <p>The design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.</p>
+<p>Since 60Hz is the largest frequency that humans can process, I decided to toggle the counter at 80Hz so that the frequency would not be too fast that they numbers would bleed together.</p>
 <p>The led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.</p>
 <section id="hardware-implementation" class="level3">
 <h3 class="anchored" data-anchor-id="hardware-implementation">Hardware Implementation</h3>
