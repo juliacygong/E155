@@ -147,8 +147,29 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#fpga-design-and-testing-methodology." id="toc-fpga-design-and-testing-methodology." class="nav-link" data-scroll-target="#fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</a>
+  <ul class="collapse">
+  <li><a href="#hardware-implementation" id="toc-hardware-implementation" class="nav-link" data-scroll-target="#hardware-implementation">Hardware Implementation</a></li>
+  </ul></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
+  <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
+  <ul class="collapse">
+  <li><a href="#testbench-simulation" id="toc-testbench-simulation" class="nav-link" data-scroll-target="#testbench-simulation">Testbench Simulation</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -172,8 +193,76 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs.</p>
+</section>
+<section id="fpga-design-and-testing-methodology." class="level2">
+<h2 class="anchored" data-anchor-id="fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</h2>
+<p>The design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.</p>
+<p>The led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.</p>
+<section id="hardware-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="hardware-implementation">Hardware Implementation</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_board.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.</figcaption>
+</figure>
+</div>
+<p>The components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.</p>
+<p>When implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. The resistor values used for the 7-segment display were the same calculations as Lab 1.</p>
+<p>The resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the <a href="https://hmc-e155.github.io/assets/doc/2N3906-D.pdf">datasheet</a> and 8mA is the current limit.</p>
+</section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<p>The code for this lab can be found in this <a href="https://github.com/juliacygong/E155/tree/main/lab02">Github repository</a>. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.</p>
+<section id="block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
+<p>The block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_schematic.jpeg" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: This image shows the block diagram that connects all the modules.</figcaption>
+</figure>
+</div>
+</section>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<p>The schematic below depicts the pin assignments for the hardware components.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab2_block.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>All of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.</p>
+<section id="testbench-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="testbench-simulation">Testbench Simulation</h3>
+<p>The waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.</p>
+<p><img src="images/mux_waveform.png" class="img-fluid"> <img src="images/mux_result.png" class="img-fluid" alt="Figure 4: This image shows the testbench results for the mux module that chooses the anode signals."></p>
+<p>The waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display. <img src="images/led_waveform.png" class="img-fluid"> <img src="images/led_results.png" class="img-fluid" alt="Figure 5: This image shows the testbench results of the 5 LED display module."></p>
+<p>The waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input. <img src="images/seg_waveform.png" class="img-fluid"> <img src="images/seg_results.png" class="img-fluid" alt="Figure 6: This image shows the testbench results for the 7-segment display module."></p>
+<p>The waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen. <img src="images/lab2_waveform.png" class="img-fluid"> <img src="images/lab2_result.png" class="img-fluid" alt="Figure 7: This image shows the testbench results for the top module design."></p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.</p>
+<p>This lab took a total of 8 hours.</p>
+</section>
+<section id="ai-prototype-summary" class="level2">
+<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
+<p>For the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.</p>
+<p>After evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.</p>
+<p>The link to the conversation can be found <a href="https://chatgpt.com/share/68bfeb95-5428-800e-8fd2-3bd4a7b33293">here</a>.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

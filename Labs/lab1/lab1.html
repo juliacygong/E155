@@ -158,6 +158,9 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#fpga-design-and-testing-methodology." id="toc-fpga-design-and-testing-methodology." class="nav-link" data-scroll-target="#fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</a>
   <ul class="collapse">
   <li><a href="#hardware-implementation" id="toc-hardware-implementation" class="nav-link" data-scroll-target="#hardware-implementation">Hardware Implementation</a></li>
+  </ul></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
   <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
   <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
   </ul></li>
@@ -230,9 +233,12 @@ ul.task-list li input[type="checkbox"] {
 <figcaption>Figure 4: This image depicts the physical breadboard layout of the 7-segment display.</figcaption>
 </figure>
 </div>
-<p>The resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the <a href="https://hmc-e155.github.io/assets/doc/MAN64x0%20Series.pdf">datasheet</a>. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate. ## Technical Documentation</p>
-<p>The source code from this lab can be found in my <a href="https://github.com/juliacygong/E155/tree/main/lab01">Github repository</a>. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.</p>
+<p>The resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the <a href="https://hmc-e155.github.io/assets/doc/MAN64x0%20Series.pdf">datasheet</a>. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate.</p>
 </section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<p>The source code from this lab can be found in my <a href="https://github.com/juliacygong/E155/tree/main/lab01">Github repository</a>. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.</p>
 <section id="block-diagram" class="level3">
 <h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
 <p>The block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.</p>

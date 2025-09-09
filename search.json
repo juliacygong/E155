@@ -39,7 +39,14 @@
     "href": "Labs/lab1/lab1.html#fpga-design-and-testing-methodology.",
     "title": "Lab 1: FPGA and MCU Setup and Testing",
     "section": "FPGA Design and Testing Methodology.",
-    "text": "FPGA Design and Testing Methodology.\nThe following tables from the lab instructions establish the relationship between the various inputs and outputs on the development board.\n\n\n\nFigure 1: This table displays the inputs and outputs required in the FPGA design.\n\n\n\n\n\nFigure 2: This table defines the relationship between the input DIP switches and the led outputs.\n\n\nThe design was developed using a clock divider, boolean algebra, and multiplexers. The clock divider would create the 2.4Hz oscillating LED, the boolean algebra would select between the DIP switch input signals to determine the other LED outputs, and the multiplexers would select the corresponding segment outputs for the 7-segment display. The 7-segment displays all the hexidecimal digits distinctly.\nThe 7-segment display has a common anode, meaning that the cathode must be grounding in order to cause the LED to turn on. Therefore, the Verilog code would send a “0” to turn on a segment and a “1” to turn off a segment.\nThe outputs of the LEDs and 7-segment display would be verified using a self-checking testbench and an oscilloscope trace.\n\nHardware Implementation\nThe development board was assembled by soldering votage regulars, SMT components (resistors, capacitors, and LEDs), and various THT components. The schematic of the development board layout can be found here.\n\n\n\nFigure 3: This image depicts the completed development board.\n\n\n\n\n\nFigure 4: This image depicts the physical breadboard layout of the 7-segment display.\n\n\nThe resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the datasheet. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate. ## Technical Documentation\nThe source code from this lab can be found in my Github repository. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.\n\n\nBlock Diagram\nThe block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.\n\n\n\nFigure 5: This image depicts the block diagram for the two Verilog modules\n\n\n\n\nSchematic\nThe schmatic outlines the FPGA pin assigments for the 4 DIP switches, LEDs, and 7-segment display.\n\n\n\nFigure 6: This image depicts the schematic for the FPGA and 7-segment display."
+    "text": "FPGA Design and Testing Methodology.\nThe following tables from the lab instructions establish the relationship between the various inputs and outputs on the development board.\n\n\n\nFigure 1: This table displays the inputs and outputs required in the FPGA design.\n\n\n\n\n\nFigure 2: This table defines the relationship between the input DIP switches and the led outputs.\n\n\nThe design was developed using a clock divider, boolean algebra, and multiplexers. The clock divider would create the 2.4Hz oscillating LED, the boolean algebra would select between the DIP switch input signals to determine the other LED outputs, and the multiplexers would select the corresponding segment outputs for the 7-segment display. The 7-segment displays all the hexidecimal digits distinctly.\nThe 7-segment display has a common anode, meaning that the cathode must be grounding in order to cause the LED to turn on. Therefore, the Verilog code would send a “0” to turn on a segment and a “1” to turn off a segment.\nThe outputs of the LEDs and 7-segment display would be verified using a self-checking testbench and an oscilloscope trace.\n\nHardware Implementation\nThe development board was assembled by soldering votage regulars, SMT components (resistors, capacitors, and LEDs), and various THT components. The schematic of the development board layout can be found here.\n\n\n\nFigure 3: This image depicts the completed development board.\n\n\n\n\n\nFigure 4: This image depicts the physical breadboard layout of the 7-segment display.\n\n\nThe resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the datasheet. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#technical-documentation",
+    "href": "Labs/lab1/lab1.html#technical-documentation",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe source code from this lab can be found in my Github repository. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.\n\nBlock Diagram\nThe block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.\n\n\n\nFigure 5: This image depicts the block diagram for the two Verilog modules\n\n\n\n\nSchematic\nThe schmatic outlines the FPGA pin assigments for the 4 DIP switches, LEDs, and 7-segment display.\n\n\n\nFigure 6: This image depicts the schematic for the FPGA and 7-segment display."
   },
   {
     "objectID": "Labs/lab1/lab1.html#results-and-discussion",
@@ -61,6 +68,55 @@
     "title": "Lab 1: FPGA and MCU Setup and Testing",
     "section": "AI Prototype Summary",
     "text": "AI Prototype Summary\nFor the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.\nThe code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code.\nThe transcript of the chat, including the code generated, can be found here."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html",
+    "href": "Labs/lab2/lab2.html",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#introduction",
+    "href": "Labs/lab2/lab2.html#introduction",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "href": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "FPGA Design and Testing Methodology.",
+    "text": "FPGA Design and Testing Methodology.\nThe design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.\nThe led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.\n\nHardware Implementation\n\n\n\nFigure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.\n\n\nThe components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.\nWhen implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. The resistor values used for the 7-segment display were the same calculations as Lab 1.\nThe resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the datasheet and 8mA is the current limit."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#technical-documentation",
+    "href": "Labs/lab2/lab2.html#technical-documentation",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.\n\nBlock Diagram\nThe block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.\n\n\n\nFigure 2: This image shows the block diagram that connects all the modules.\n\n\n\n\nSchematic\nThe schematic below depicts the pin assignments for the hardware components.\n\n\n\nFigure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#results-and-discussion",
+    "href": "Labs/lab2/lab2.html#results-and-discussion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nAll of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.\n\nTestbench Simulation\nThe waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.\n \nThe waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display.  \nThe waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input.  \nThe waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#conclusion",
+    "href": "Labs/lab2/lab2.html#conclusion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.\nThis lab took a total of 8 hours."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "href": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.\nAfter evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.\nThe link to the conversation can be found here."
   },
   {
     "objectID": "posts/initialBlog.html",
