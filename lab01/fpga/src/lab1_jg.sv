@@ -14,7 +14,7 @@ logic int_osc;
 logic [33:0] counter; 
 
 
-   // Internal high-speed oscillator
+// Internal high-speed oscillator
 HSOSC #(.CLKHF_DIV(2'b00)) 
        hf_osc (.CLKHFPU(1'b1), .CLKHFEN(1'b1), .CLKHF(int_osc));
 	   

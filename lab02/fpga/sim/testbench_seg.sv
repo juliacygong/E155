@@ -6,7 +6,7 @@
 
 `timescale 1ns/1ps 
 
-module testbench();
+module testbench_seg();
     logic       clk, reset;
     logic       [3:0] s;
     logic       [6:0] seg, segExpected;

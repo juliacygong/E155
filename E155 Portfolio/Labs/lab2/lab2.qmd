@@ -2,3 +2,33 @@
 title: "Lab 2: Multiplexed 7-Segment Display"
 
 ---
+
+## Introduction
+
+
+
+## FPGA Design and Testing Methodology. 
+
+
+### Hardware Implementation
+
+
+## Technical Documentation
+
+
+### Block Diagram
+
+
+### Schematic
+
+
+## Results and Discussion
+
+
+### Testbench Simulation
+
+
+## Conclusion
+
+
+## AI Prototype Summary
