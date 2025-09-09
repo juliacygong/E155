@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "Week 1 Reflections\n\n\nLab 1 E155 Blog\n\n\n\n\n\nSep 2, 2025\n\n\nJulia Gong\n\n\n\n\n\n\n\n\n\n\n\n\nInitial Reflections\n\n\nInitial Fall E155 Blog\n\n\n\n\n\nAug 29, 2025\n\n\nJulia Gong\n\n\n\n\n\nNo matching items"
+    "text": "Week 2 Reflections\n\n\nLab 2 E155 Blog\n\n\n\n\n\nSep 9, 2025\n\n\nJulia Gong\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 1 Reflections\n\n\nLab 1 E155 Blog\n\n\n\n\n\nSep 2, 2025\n\n\nJulia Gong\n\n\n\n\n\n\n\n\n\n\n\n\nInitial Reflections\n\n\nInitial Fall E155 Blog\n\n\n\n\n\nAug 29, 2025\n\n\nJulia Gong\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "Resources/resources.html",
@@ -14,11 +14,60 @@
     "text": "For external resources and information regarding my labs and project, please reference the E155 website here.\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/Week1.html",
-    "href": "posts/Week1.html",
-    "title": "Week 1 Reflections",
+    "objectID": "posts/Week2.html",
+    "href": "posts/Week2.html",
+    "title": "Week 2 Reflections",
     "section": "",
-    "text": "This past week I was working on Lab 1 for E155. In this lab I learned a lot about soldering SMT components, which was very time consuming. Additionally, I became more familiar with the Lattice Radiant software environment while synthesizing and programming my FPGA. This lab also refreshed my memory for writing self-checking testbenches in Verilog as well as simulating my code in Questa. The logic for the LEDs and 7-segment display were very straight forward, so there was not too much debugging logic. The most common errors I ran into were syntax errors, files in the wrong directory, and the “FTDI Error” messages in Radiant. Overall, I am glad that all the components of my 7-segment display and LEDs are working!"
+    "text": "This past week I was working on Lab 2 for E155. In this lab I learned a lot about writing testbenches. I am used to writing testbenches with testvectors, but I learned to write testbenches with for loops and assertions. I also learned about how PNP transistors work when implementing my design on the breadboard. I spent the most amount of time this week writing my testbenches to verify my code through simulation as well as debugging some small hardware issues. Everything in my lab works as expected!"
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html",
+    "href": "Labs/lab2/lab2.html",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#introduction",
+    "href": "Labs/lab2/lab2.html#introduction",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "href": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "FPGA Design and Testing Methodology.",
+    "text": "FPGA Design and Testing Methodology.\nThe design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.\nThe led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.\n\nHardware Implementation\n\n\n\nFigure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.\n\n\nThe components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.\nWhen implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. The resistor values used for the 7-segment display were the same calculations as Lab 1.\nThe resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the datasheet and 8mA is the current limit."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#technical-documentation",
+    "href": "Labs/lab2/lab2.html#technical-documentation",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.\n\nBlock Diagram\nThe block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.\n\n\n\nFigure 2: This image shows the block diagram that connects all the modules.\n\n\n\n\nSchematic\nThe schematic below depicts the pin assignments for the hardware components.\n\n\n\nFigure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#results-and-discussion",
+    "href": "Labs/lab2/lab2.html#results-and-discussion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nAll of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.\n\nTestbench Simulation\nThe waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.\n \nThe waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display.  \nThe waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input.  \nThe waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#conclusion",
+    "href": "Labs/lab2/lab2.html#conclusion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.\nThis lab took a total of 8 hours."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "href": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.\nAfter evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.\nThe link to the conversation can be found here."
   },
   {
     "objectID": "Labs/lab1/lab1.html",
@@ -70,53 +119,11 @@
     "text": "AI Prototype Summary\nFor the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.\nThe code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code.\nThe transcript of the chat, including the code generated, can be found here."
   },
   {
-    "objectID": "Labs/lab2/lab2.html",
-    "href": "Labs/lab2/lab2.html",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "objectID": "posts/Week1.html",
+    "href": "posts/Week1.html",
+    "title": "Week 1 Reflections",
     "section": "",
-    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#introduction",
-    "href": "Labs/lab2/lab2.html#introduction",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "",
-    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
-    "href": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "FPGA Design and Testing Methodology.",
-    "text": "FPGA Design and Testing Methodology.\nThe design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.\nThe led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.\n\nHardware Implementation\n\n\n\nFigure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.\n\n\nThe components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.\nWhen implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. The resistor values used for the 7-segment display were the same calculations as Lab 1.\nThe resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the datasheet and 8mA is the current limit."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#technical-documentation",
-    "href": "Labs/lab2/lab2.html#technical-documentation",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.\n\nBlock Diagram\nThe block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.\n\n\n\nFigure 2: This image shows the block diagram that connects all the modules.\n\n\n\n\nSchematic\nThe schematic below depicts the pin assignments for the hardware components.\n\n\n\nFigure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#results-and-discussion",
-    "href": "Labs/lab2/lab2.html#results-and-discussion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nAll of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.\n\nTestbench Simulation\nThe waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.\n \nThe waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display.  \nThe waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input.  \nThe waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#conclusion",
-    "href": "Labs/lab2/lab2.html#conclusion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.\nThis lab took a total of 8 hours."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#ai-prototype-summary",
-    "href": "Labs/lab2/lab2.html#ai-prototype-summary",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.\nAfter evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.\nThe link to the conversation can be found here."
+    "text": "This past week I was working on Lab 1 for E155. In this lab I learned a lot about soldering SMT components, which was very time consuming. Additionally, I became more familiar with the Lattice Radiant software environment while synthesizing and programming my FPGA. This lab also refreshed my memory for writing self-checking testbenches in Verilog as well as simulating my code in Questa. The logic for the LEDs and 7-segment display were very straight forward, so there was not too much debugging logic. The most common errors I ran into were syntax errors, files in the wrong directory, and the “FTDI Error” messages in Radiant. Overall, I am glad that all the components of my 7-segment display and LEDs are working!"
   },
   {
     "objectID": "posts/initialBlog.html",
