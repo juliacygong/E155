@@ -211,8 +211,9 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>The components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.</p>
-<p>When implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. The resistor values used for the 7-segment display were the same calculations as Lab 1.</p>
+<p>When implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. Since there was a PNP transistor connected to the anodes, there is a Vceast of 200mV. Additionally, there is a voltage drop from the LED segment of 1.8V. Using V = IR, (3.3V - 0.2V - 1.8V)/10mA = R, where R = 130Ω.</p>
 <p>The resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the <a href="https://hmc-e155.github.io/assets/doc/2N3906-D.pdf">datasheet</a> and 8mA is the current limit.</p>
+<p>For the LEDs, the voltage drop for a red LED is approximately 2.1 V and the desired current is around 10mA. Using the equation V = IR, R = (3.3-2.1V)/20mA = 110. To ensure the proper current I used 220Ω resistors.</p>
 </section>
 </section>
 <section id="technical-documentation" class="level2">
@@ -223,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/lab2_schematic.jpeg" class="img-fluid figure-img"></p>
+<p><img src="images/lab2_block.png" class="img-fluid figure-img"></p>
 <figcaption>Figure 2: This image shows the block diagram that connects all the modules.</figcaption>
 </figure>
 </div>
@@ -233,7 +234,7 @@ ul.task-list li input[type="checkbox"] {
 <p>The schematic below depicts the pin assignments for the hardware components.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/lab2_block.png" class="img-fluid figure-img"></p>
+<p><img src="images/lab2_schematic.jpeg" class="img-fluid figure-img"></p>
 <figcaption>Figure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs.</figcaption>
 </figure>
 </div>
