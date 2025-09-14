@@ -14,7 +14,7 @@ module lab2_jg #(parameter N = 24'd28)
                output logic [6:0] seg
 );
 
-logic int_osc, y, select; 
+logic int_osc, select; 
 logic [3:0] s;
 logic [23:0] counter;
 
@@ -26,7 +26,7 @@ HSOSC #(.CLKHF_DIV(2'b00))
     always_ff @(posedge int_osc) begin
         if(reset == 1'b0)		  counter <= 1'b0;
         else              		  counter <= counter + N;
-        end
+    end
 
 assign select = counter[23];
 

@@ -27,6 +27,7 @@ The development board was assembled by soldering votage regulars, SMT components
 ![Figure 4: This image depicts the physical breadboard layout of the 7-segment display.](images/breadboard.png)
 
 The resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the [datasheet](https://hmc-e155.github.io/assets/doc/MAN64x0%20Series.pdf). From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate. 
+
 ## Technical Documentation
 
 The source code from this lab can be found in my [Github repository](https://github.com/juliacygong/E155/tree/main/lab01). The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files. 
@@ -65,6 +66,7 @@ I spent a total number of 15 hours on this lab. A large amount of time in this l
 ## AI Prototype Summary
 For the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.
 
-The code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code. 
+The code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code. After providing more context, with another prompt, ChatGPT was able to produce better code.
+
 
 The transcript of the chat, including the code generated, can be found [here](https://chatgpt.com/share/68b7add1-90c8-800e-8b15-9c966d711eab).

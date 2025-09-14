@@ -1,0 +1,11 @@
+---
+title: "Week 2 Reflections"
+description: "Lab 2 E155 Blog"
+author: "Julia Gong"
+date: "9/09/2025"
+categories:
+    - reflection
+    - labreport
+draft: false
+---
+This past week I was working on Lab 2 for E155. In this lab I learned a lot about writing testbenches. I am used to writing testbenches with testvectors, but I learned to write testbenches with for loops and assertions. I also learned about how PNP transistors work when implementing my design on the breadboard. I spent the most amount of time this week writing my testbenches to verify my code through simulation as well as debugging some small hardware issues. Everything in my lab works as expected!

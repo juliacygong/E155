@@ -1,0 +1,38 @@
+// Julia Gong E155
+// lab2_testvectors_mux.txt
+// jgong@g.hmc.edu
+// Date created: 9/6/25
+// This module has the testvectors for the mux to select which 7-segment LED display is being turned on
+
+1_0000_xxxx_0000_1_0
+1_0001_xxxx_0001_1_0
+1_0010_xxxx_0010_1_0
+1_0011_xxxx_0011_1_0
+1_0100_xxxx_0100_1_0
+1_0101_xxxx_0101_1_0
+1_0110_xxxx_0110_1_0
+1_0111_xxxx_0111_1_0
+1_1000_xxxx_1000_1_0
+1_1001_xxxx_1001_1_0
+1_1010_xxxx_1010_1_0
+1_1011_xxxx_1011_1_0
+1_1100_xxxx_1100_1_0
+1_1101_xxxx_1101_1_0
+1_1110_xxxx_1110_1_0
+1_1111_xxxx_1111_1_0
+0_xxxx_0000_0000_0_1
+0_xxxx_0001_0001_0_1
+0_xxxx_0010_0010_0_1
+0_xxxx_0011_0011_0_1
+0_xxxx_0100_0100_0_1
+0_xxxx_0101_0101_0_1
+0_xxxx_0110_0110_0_1
+0_xxxx_0111_0111_0_1
+0_xxxx_1000_1000_0_1
+0_xxxx_1001_1001_0_1
+0_xxxx_1010_1010_0_1
+0_xxxx_1011_1011_0_1
+0_xxxx_1100_1100_0_1
+0_xxxx_1101_1101_0_1
+0_xxxx_1110_1110_0_1
+0_xxxx_1111_1111_0_1
