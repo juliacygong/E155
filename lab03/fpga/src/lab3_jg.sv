@@ -11,7 +11,7 @@ module lab3_jg(input logic reset,
 );
 
 logic int_osc, select; 
-logic [3:0] s, sync, cols_sync; 
+logic [3:0] s, sync, cols_sync, key_col; 
 logic [23:0] counter;
 logic [7:0] key_val; 
 logic [3:0] curr_key, prev_key; 
@@ -32,10 +32,10 @@ assign select = counter[23];
 // synchronizer for keypad inputs
 always_ff @(posedge int_osc) begin
     sync <= cols;
-    sync <= cols_sync;
+    cols_sync <= sync;
 end
 
-scan scan_dut(clk, .reset(reset), .cols(cols_sync), .key_col(key_col), .key_val(key_val));
+scan scan_dut(.clk(int_osc), .reset(reset), .cols_sync(cols_sync), .key_col(key_col), .key_val(key_val));
 
 fsm fsm_dut(.int_osc(int_osc), .reset(reset), .key_val(key_val), .key_col(key_col), .key(key), .key_valid(key_valid));
 
