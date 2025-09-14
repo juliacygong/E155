@@ -1,3 +1,4 @@
+
 // Julia Gong E155
 // lab3_jg.sv
 // jgong@g.hmc.edu
@@ -46,7 +47,6 @@ always_comb begin
     reset_count = 1'b0;
     key_valid = 1'b0;
     nextstate = state;
-    key_out = 8'b0000_0000;
     case (state)
         Wait: begin
             key_valid = 1'b0;
@@ -81,7 +81,7 @@ always_comb begin
     endcase
 end
 
-keypadLUT(.key_out(key_out), .key_valid(key_valid), .key(key));
+keypadLUT key_dut(.key_out(key_out), .key_valid(key_valid), .key(key));
 
 
 endmodule
