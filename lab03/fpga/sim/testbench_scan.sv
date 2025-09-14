@@ -13,7 +13,7 @@ logic [7:0] key_vals;
 logic [31:0] errors;
 
 // instantiate module
-scan dut(clk, reset, cols, key_val)
+scan dut(clk, reset, cols, key_val);
 
 // generate clock
 always
