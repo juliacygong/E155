@@ -8,7 +8,9 @@ module scan(input logic clk, reset,
             input logic [3:0] cols, 
             output logic [3:0] key_row,
             output logic [3:0] key_col, 
-            output logic [7:0] key_val
+            output logic [7:0] key_val,
+			output logic led_val,
+			output logic [2:0] led_col
 );
 
 logic [3:0] rows, c_sync, cols_sync;
@@ -17,13 +19,19 @@ logic key_in;
 
 
 // synchronizer for keypad inputs
-always_ff @(posedge clk) begin
+always_ff @(posedge clk, negedge reset) begin
+	if (~reset) begin
+		c_sync <= 0;
+		cols_sync <= 0;
+	end
+	else begin
     c_sync <= cols;
     cols_sync <= c_sync;
+	end
 end
 
-always_ff @(posedge clk, posedge reset) begin
-    if (reset)
+always_ff @(posedge clk, negedge reset) begin
+    if (~reset)
         row_num <= 0;
     else
         row_num <= row_num + 1'b1;
@@ -45,11 +53,13 @@ assign key_row = rows;
 always_comb begin
     key_col = 4'b0000;
     key_val = 8'b0000_0000;
+	led_val = 1'b0;
     if (cols_sync != 4'b1111) begin // receives an input so one goes low
         key_col = ~cols_sync; // inverts bits so that col ON is in one hot encoding
         key_val = {~rows, key_col};
+		led_val = 1'b1;
+		led_col = cols_sync[2:0];
     end
-
 end
 
 endmodule
