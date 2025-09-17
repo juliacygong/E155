@@ -8,12 +8,13 @@
 
 module testbench_scan();
 logic clk, reset;
-logic [3:0] key_col, cols, key_row;
+logic [3:0] key_col, cols, key_row, row_current;
 logic [7:0] key_val;
 logic [31:0] errors;
 
+
 // instantiate module
-scan dut(clk, reset, cols, key_row, key_col, key_val, led_val);
+scan dut(clk, reset, cols, row_stop, row_current, key_row, key_col, key_val);
 
 // generate clock
 always
@@ -33,7 +34,7 @@ initial begin
         errors = errors + 1;
     end
 
-    #10
+    #1
 
     cols = 4'b1101; #1;
 	wait (key_row == 4'b1101); #1
@@ -42,7 +43,7 @@ initial begin
         errors = errors + 1;
     end
 
-    #10
+    #1
 
 	cols = 4'b1011; #1;
     wait (key_row == 4'b1011); #1
@@ -51,11 +52,27 @@ initial begin
             errors = errors + 1;
     end
 
-    #10
+    #1
 
     cols = 4'b0111; #1;
 	wait (key_row == 4'b0111); #1
     assert (key_val === 8'b1000_1000) else begin
+        $display ("Error: row = %b and col = %b", key_row, cols);
+            errors = errors + 1;
+    end
+	#1;
+	
+	cols = 4'b0111; #1;
+	wait (key_row == 4'b1011); #1
+    assert (key_val === 8'b1000_0100) else begin
+        $display ("Error: row = %b and col = %b", key_row, cols);
+            errors = errors + 1;
+    end
+	#1;
+	
+	cols = 4'b1101; #1;
+	wait (key_row == 4'b0111); #1
+    assert (key_val === 8'b0010_1000) else begin
         $display ("Error: row = %b and col = %b", key_row, cols);
             errors = errors + 1;
     end
