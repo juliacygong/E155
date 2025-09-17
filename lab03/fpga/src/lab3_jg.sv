@@ -30,7 +30,7 @@ end
 assign select = counter[22]; // 80Hz
 
 
-scan scan_dut(.clk(select), .reset(reset), .cols(cols), .row_stop(row_stop), .row_current(row_current), .key_row(key_row), .key_col(key_col), .key_val(key_val));
+scan scan_dut(.clk(select), .reset(reset), .cols(cols), .row_stop(row_stop), .key_row(key_row), .key_col(key_col), .key_val(key_val));
 
 fsm fsm_dut(.clk(select), .reset(reset), .key_val(key_val), .key_col(key_col), .key(key), .key_valid(key_valid), .row_stop(row_stop), .row_current(row_current));
 
