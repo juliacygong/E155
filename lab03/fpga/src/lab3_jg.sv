@@ -9,7 +9,6 @@ module lab3_jg(input logic reset,
                output logic anode1, anode2,
                output logic [3:0] key_row,
                output logic [6:0] seg,
-			   output logic led_val
 );
 
 logic int_osc, select, key_valid, row_stop; 
