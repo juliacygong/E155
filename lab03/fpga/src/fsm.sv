@@ -9,7 +9,6 @@ module fsm(input logic clk, reset,
            input logic [3:0] key_col, 
            output logic [3:0] key,
            output logic key_valid,
-		   output logic [2:0] led_out,
 		   output logic row_stop,
 		   output logic [3:0] row_current
 );
@@ -67,14 +66,10 @@ always_comb begin
     reset_count = 1'b0;
     key_valid = 1'b0;
     nextstate = state;
-	led_out = 3'b000;
 	row_stop = 1'b0;
-	//row_stop = 1'b0;
     case (state)
         WAIT: 
 		begin
-			led_out = key_val[6:4];
-			row_now = key_val[7:4];
             if (key_col != 4'b0000 && $countones(key_col) == 1 && key_val[7:4] != 4'b0000) begin
 				nextstate = INPUT;
 					row_current = key_val[7:4]; 
@@ -85,7 +80,6 @@ always_comb begin
         INPUT: 
 		begin
 			row_stop = 1'b1;
-			led_out = key_val[6:4];
             reset_count = 1'b0; // reset counter to wait 40 Mhz
             nextstate = INPUT_WAIT;
         end
@@ -93,7 +87,6 @@ always_comb begin
 		begin
 			row_stop = 1'b1;
             reset_count = 1'b1;
-			led_out = 3'b100;
             if (counter[2]) begin
                     key_valid = 1'b1;
                     nextstate = HOLD;
@@ -103,7 +96,6 @@ always_comb begin
         HOLD: 
 		begin
 			row_stop = 1'b1;
-			led_out = key_val[6:4];
             if (key_col == 4'b0000) nextstate = DEBOUNCE; // wait for key release
             else                    nextstate = HOLD;
             
@@ -111,14 +103,12 @@ always_comb begin
         DEBOUNCE: 
 		begin
 			row_stop = 1'b1;
-			led_out = key_val[6:4];
             reset_count = 1'b0;
             nextstate = DEBOUNCE_WAIT;
         end
         DEBOUNCE_WAIT: 
 		begin
 			row_stop = 1'b1;
-			led_out = key_val[6:4];
             reset_count = 1'b1;
             if (counter[2]) nextstate = WAIT;
             else          nextstate = DEBOUNCE_WAIT;
