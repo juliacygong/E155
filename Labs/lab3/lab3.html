@@ -147,8 +147,30 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#fpga-design-and-testing-methodology." id="toc-fpga-design-and-testing-methodology." class="nav-link" data-scroll-target="#fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</a>
+  <ul class="collapse">
+  <li><a href="#hardware-implementation" id="toc-hardware-implementation" class="nav-link" data-scroll-target="#hardware-implementation">Hardware Implementation</a></li>
+  </ul></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
+  <li><a href="#fsm-state-transition-table" id="toc-fsm-state-transition-table" class="nav-link" data-scroll-target="#fsm-state-transition-table">FSM State Transition Table</a></li>
+  <li><a href="#block-diagram" id="toc-block-diagram" class="nav-link" data-scroll-target="#block-diagram">Block Diagram</a></li>
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
+  <ul class="collapse">
+  <li><a href="#testbench-simulation" id="toc-testbench-simulation" class="nav-link" data-scroll-target="#testbench-simulation">Testbench Simulation</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -172,8 +194,201 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>The purpose of this lab was to debounce the signals from a key press on a 4x4 keyboard. The last two imputs pressed would be dispayed on a dual 7-segment display. Additionally, the display would not lock up if multiple inputs are pressed and should ignore other inputs when one key is held down.</p>
+</section>
+<section id="fpga-design-and-testing-methodology." class="level2">
+<h2 class="anchored" data-anchor-id="fpga-design-and-testing-methodology.">FPGA Design and Testing Methodology.</h2>
+<p>In this lab I designed an FSM in order to debounce the keyboard properly. The focus of this lab was to design synchronous sequential logic, which made me aware of synchronizing my column inputs as well as keeping track of what clock cycles specific values update at.</p>
+<p>I used the dual 7-segment display from Lab 2, so I kept the same clock divider, hardware layout, and submodules.</p>
+<section id="hardware-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="hardware-implementation">Hardware Implementation</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_board.jpg" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: This image shows the breadboard layout of the dual 7-segment display with the 4x4 keyboard.</figcaption>
+</figure>
+</div>
+<p>The components of this lab consisted of the development board, a 4x4 keypad, a dual 7-segment display, two 2N3906 PNP transistors. The keyboard schematic can be found <a href="https://hmc-e155.github.io/assets/doc/Keypad_Pinout_Adafruit_3845.jpg">here</a>.</p>
+<p>When implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. Since there was a PNP transistor connected to the anodes, there is a Vceast of 200mV. Additionally, there is a voltage drop from the LED segment of 1.8V. Using V = IR, (3.3V - 0.2V - 1.8V)/10mA = R, where R = 130Ω.</p>
+<p>The resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the <a href="https://hmc-e155.github.io/assets/doc/2N3906-D.pdf">datasheet</a> and 8mA is the current limit.</p>
+<p>Additionally, current limiting resistors were used to connect the keypad pins to the FPGA pins. Using V = IR, where V = 3.3 and I = 8mA, R = 410 Ω. I found 510Ω resistors and used them to limit current.</p>
+</section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<p>The code for this lab can be found in this <a href="https://github.com/juliacygong/E155/tree/main/lab03">Github repository</a>. This contains the code for the top module, the submodules used, as well as the testbenches made.</p>
+<section id="fsm-state-transition-table" class="level3">
+<h3 class="anchored" data-anchor-id="fsm-state-transition-table">FSM State Transition Table</h3>
+<p>In order to determine the debounce of the keys, I implemented a finite state machine. There are a total of 6 states. I do think that my finite state machine was effective in debouncing the key inputs. However, it can definitely be made more efficients so that there are ony 4 states (eliminating the INPUT_WAIT and DEBOUNCE_WAIT stages).</p>
+<p>I chose to debounce the keypad using an FSM with counters. This approach ensures that both the press and release of a key are validated over a minimum time, avoiding multiple false triggers due to switch bounce. Compared to hardware RC circuits, the FSM approach is more flexible since debounce times can be tuned in code. Compared to shift-register or oversampling methods, my design uses fewer flip-flops and integrates naturally with the keypad state machine. The tradeoff is that very brief taps shorter than the debounce window may be missed, but for human inputs this timing works.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_fsm.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 2: This image shows the finite state machine used to debounce they key inputs.</figcaption>
+</figure>
+</div>
+<p>The state transition table can be seen below:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 45%">
+<col style="width: 10%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Current State</th>
+<th>Input Condition</th>
+<th>Next State</th>
+<th>Outputs (<code>row_stop</code>, <code>key_valid</code>, <code>reset_count</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>WAIT</strong></td>
+<td><code>key_col != 0 &amp;&amp; $countones(key_col) == 1 &amp;&amp; key_val[7:4] != 0</code></td>
+<td>INPUT</td>
+<td><code>1, 0, 0</code></td>
+</tr>
+<tr class="even">
+<td>WAIT</td>
+<td>otherwise</td>
+<td>WAIT</td>
+<td><code>0, 0, 0</code></td>
+</tr>
+<tr class="odd">
+<td><strong>INPUT</strong></td>
+<td>(always)</td>
+<td>INPUT_WAIT</td>
+<td><code>1, 0, 0</code></td>
+</tr>
+<tr class="even">
+<td><strong>INPUT_WAIT</strong></td>
+<td><code>counter[2] == 1</code></td>
+<td>HOLD</td>
+<td><code>1, 1, 1</code></td>
+</tr>
+<tr class="odd">
+<td>INPUT_WAIT</td>
+<td>otherwise</td>
+<td>INPUT_WAIT</td>
+<td><code>1, 0, 1</code></td>
+</tr>
+<tr class="even">
+<td><strong>HOLD</strong></td>
+<td><code>key_col == 0</code></td>
+<td>DEBOUNCE</td>
+<td><code>1, 0, 0</code></td>
+</tr>
+<tr class="odd">
+<td>HOLD</td>
+<td>otherwise</td>
+<td>HOLD</td>
+<td><code>1, 0, 0</code></td>
+</tr>
+<tr class="even">
+<td><strong>DEBOUNCE</strong></td>
+<td>(always)</td>
+<td>DEBOUNCE_WAIT</td>
+<td><code>1, 0, 0</code></td>
+</tr>
+<tr class="odd">
+<td><strong>DEBOUNCE_WAIT</strong></td>
+<td><code>counter[2] == 1</code></td>
+<td>WAIT</td>
+<td><code>1, 0, 1</code></td>
+</tr>
+<tr class="even">
+<td>DEBOUNCE_WAIT</td>
+<td>otherwise</td>
+<td>DEBOUNCE_WAIT</td>
+<td><code>1, 0, 1</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="block-diagram" class="level3">
+<h3 class="anchored" data-anchor-id="block-diagram">Block Diagram</h3>
+<p>The block diagram below shows all the submodules and how they interact with one another.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_block.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: This image shows the block diagram that connects all the modules.</figcaption>
+</figure>
+</div>
+</section>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<p>The schematic below depicts the pin assignments for the hardware components.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_schematic.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 4: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and keypad.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The dual 7-segment display responds properly to the keypad inputs. When multiple keys are pressed at once it registers the key pressed first and does not lock up. Additionally, when one key is held down and other keys are held down, the other inputs are ignored. The functioning system can be seen below!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><video src="images/IMG_6136.mov" class="img-fluid" controls=""><a href="images/IMG_6136.mov">Video</a></video></p>
+<figcaption>Figure 5: Working debouncing!!!</figcaption>
+</figure>
+</div>
+<section id="testbench-simulation" class="level3">
+<h3 class="anchored" data-anchor-id="testbench-simulation">Testbench Simulation</h3>
+<p>The waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.</p>
+<p><img src="images/mux_waveform.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/mux_result.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 6: This image shows the testbench results for the mux module that chooses the anode signals.</figcaption>
+</figure>
+</div>
+<p>The waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input. <img src="images/seg_waveform.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/seg_results.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 7: This image shows the testbench results for the 7-segment display module.</figcaption>
+</figure>
+</div>
+<p>The waveforms for the scanner shows that the rows are changing, “scanning the keyboard”, in order to detect an input.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/scan_waves.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 8: The image shows the testbench results for the scanning module</figcaption>
+</figure>
+</div>
+<p>The waveforms for the fsm shows that when the module receives a column input, it is properly cycling through the states of the finite state machine.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fsm_waves.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 9: The image shows the testbench results for the fsm module</figcaption>
+</figure>
+</div>
+<p>The waveforms for the top level module shows that all the modules are properly connected and toggling between one another!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab3_waves.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 10: The image shows the testbench results for the fsm module</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>This lab took me around 20 hours. The majority of the time was debugging my keyboard hardware as well as my debouncing because I was registering multiple inputs when a key was held down for too long. One thing that I would suggest is to change the pinout for the first keyboard on the general lab <a href="https://hmc-e155.github.io/lab/lab3/">website</a>. I used that first keypad layout and trusted the pinouts on the website, and realized after some debugging that the pinouts were wrong. So one thing I learned is to always check the pinouts for connectivity!</p>
+</section>
+<section id="ai-prototype-summary" class="level2">
+<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
+<p>The monolithic prompt generated a full design quickly, but it often blurred module boundaries, produced synthesis errors, and required more debugging. Breaking the task into modular prompts gave cleaner FSMs, improved readability, and made it easier to verify each piece before integration. The LLM’s use of enumerated states, always_ff, and glitch-free outputs was helpful, though keypad code mapping and active-low polarity sometimes needed correction. Overall, modularizing the prompts improved correctness and workflow efficiency, and in the future I would explicitly separate FSM responsibilities and clarify signal conventions upfront.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
