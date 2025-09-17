@@ -52,7 +52,6 @@ always_ff @(posedge clk, negedge reset)
         key_f <= 8'b1111_1111;
     else if (row_stop && state == WAIT)  
         key_f <= key_val;
-		//{key_out[5], key_out[4], key_out[7], key_out[6], key_val[3:0]};
 
 // FSM 
 always_comb begin
