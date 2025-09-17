@@ -6,22 +6,21 @@
 
 module scan(input logic clk, reset,
             input logic [3:0] cols, 
+			input logic row_stop,
+			input logic [3:0] row_current,
             output logic [3:0] key_row,
             output logic [3:0] key_col, 
-            output logic [7:0] key_val,
-			output logic led_val,
-			output logic [2:0] led_col
+            output logic [7:0] key_val
 );
 
 logic [3:0] row_num, c_sync, cols_sync;
-logic row_stop;
 logic key_in;
 
 // synchronizer for keypad inputs
 always_ff @(posedge clk, negedge reset) begin
 	if (~reset) begin
-		c_sync <= 0;
-		cols_sync <= 0;
+		c_sync <= 4'b1111;
+		cols_sync <= 4'b1111;
 	end
 	else begin
     c_sync <= cols;
@@ -29,13 +28,16 @@ always_ff @(posedge clk, negedge reset) begin
 	end
 end
 
-always_ff @(posedge clk, negedge reset) begin
+always_ff @(posedge (clk), negedge reset) begin
 	if (~reset)
         key_row <= 4'b1110; 
-    else if (row_stop) begin // stop scanning rows when input reciepted
-        key_row <= key_row:
+	else if (row_stop) begin
+		key_row <= 4'b0000; 
+	end
+	else if (key_row == 4'b0000) begin
+        key_row <= 4'b1110; // Restart rotation when row_stop goes low
     end
-    else
+	else
         key_row <= {key_row[2:0], key_row[3]};
 end
 
@@ -43,9 +45,7 @@ end
 always_comb begin
     key_col = 4'b0000;
     key_val = 8'b0000_0000;
-    row_stop = 1'b0;
     if (cols_sync != 4'b1111) begin // receives an input so one goes low
-        row_stop = 1'b1;
         key_col = ~cols_sync; // inverts bits so that col ON is in one hot encoding
 		key_val = {~key_row, key_col};
     end
