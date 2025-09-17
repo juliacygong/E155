@@ -10,7 +10,6 @@ module fsm(input logic clk, reset,
            output logic [3:0] key,
            output logic key_valid,
 		   output logic row_stop,
-		   output logic [3:0] row_current
 );
 
 logic reset_count;
@@ -48,12 +47,6 @@ always_ff @(posedge clk, negedge reset) begin
 end
 
 
-// output register for key_out
-// always_ff @(posedge clk, negedge reset) begin
-   // if (~reset) key_out <= 8'd0000_0000;
-   // else if (key_valid) key_out <= key_first;
-//end
-
 always_ff @(posedge clk, negedge reset)
     if (~reset)
         key_f <= 8'b1111_1111;
@@ -70,9 +63,8 @@ always_comb begin
     case (state)
         WAIT: 
 		begin
-            if (key_col != 4'b0000 && $countones(key_col) == 1 && key_val[7:4] != 4'b0000) begin
+			if (key_col != 4'b0000 && $countones(key_col) == 1 && key_val[7:4] != 4'b0000) begin // checks to make sure multiple columns are not pressed
 				nextstate = INPUT;
-					row_current = key_val[7:4]; 
 					row_stop = 1'b1;
 				end
             else                         nextstate = WAIT;
