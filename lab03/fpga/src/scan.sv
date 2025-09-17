@@ -7,6 +7,7 @@
 module scan(input logic clk, reset,
             input logic [3:0] cols, 
 			input logic row_stop,
+			output logic [3:0] key_row, 
             output logic [3:0] key_col, 
             output logic [7:0] key_val
 );
