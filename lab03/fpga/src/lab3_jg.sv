@@ -9,15 +9,14 @@ module lab3_jg(input logic reset,
                output logic anode1, anode2,
                output logic [3:0] key_row,
                output logic [6:0] seg,
-			   output logic led_val,
-			   output logic [2:0] led_col
+			   output logic led_val
 );
 
-logic int_osc, select, key_valid; 
+logic int_osc, select, key_valid, row_stop; 
 logic [3:0] s, r_sync, c_sync, cols_sync, rows_sync, key_col, key; 
 logic [23:0] counter;
 logic [7:0] key_val; 
-logic [3:0] curr_key, prev_key;
+logic [3:0] curr_key, prev_key, row_current;
 
 // Internal high-speed oscillator
 HSOSC #(.CLKHF_DIV(2'b00)) 
@@ -29,12 +28,12 @@ always_ff @(posedge int_osc, negedge reset) begin
     else              		  counter <= counter + 24'd28;
 end
 
-assign select = counter[23]; // 80Hz
+assign select = counter[22]; // 80Hz
 
 
-scan scan_dut(.clk(select), .reset(reset), .cols(cols), .key_row(key_row), .key_col(key_col), .key_val(key_val), .led_val(led_val), .led_col(led_col));
+scan scan_dut(.clk(select), .reset(reset), .cols(cols), .row_stop(row_stop), .row_current(row_current), .key_row(key_row), .key_col(key_col), .key_val(key_val));
 
-fsm fsm_dut(.clk(select), .reset(reset), .key_val(key_val), .key_col(key_col), .key(key), .key_valid(key_valid));
+fsm fsm_dut(.clk(select), .reset(reset), .key_val(key_val), .key_col(key_col), .key(key), .key_valid(key_valid), .row_stop(row_stop), .row_current(row_current));
 
 flopr #(4) curr_reg(.clk(select), .reset(reset), .en(key_valid), .d(key), .q(curr_key)); // stores current key
 
