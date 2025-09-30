@@ -100,4 +100,5 @@ This lab took me around 20 hours. The majority of the time was debugging my keyb
 
 
 ## AI Prototype Summary
+For this AI Prototype, I prompted ChatGPT to write SystemVerilog after giving different prompts.
 The monolithic prompt generated a full design quickly, but it often blurred module boundaries, produced synthesis errors, and required more debugging. Breaking the task into modular prompts gave cleaner FSMs, improved readability, and made it easier to verify each piece before integration. The LLM’s use of enumerated states, always_ff, and glitch-free outputs was helpful, though keypad code mapping and active-low polarity sometimes needed correction. Overall, modularizing the prompts improved correctness and workflow efficiency, and in the future I would explicitly separate FSM responsibilities and clarify signal conventions upfront.

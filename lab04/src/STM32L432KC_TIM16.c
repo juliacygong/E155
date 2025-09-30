@@ -1,6 +1,7 @@
 // Julia Gong
 // 9/27/25
 // initializing timer and PWM for MCU
+// STM32L432KC_TIM16.c
 
 #include "STM32L432KC_TIM16.h"
 #include <math.h>

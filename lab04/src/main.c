@@ -1,6 +1,7 @@
 // Julia Gong
 // 9/27/25
 // This is the main module that includes note frequencies for songs, timers, and PWM signals
+// mainc
 
 #include "STM32L432KC_FLASH.h"
 #include "STM32L432KC_GPIO.h"

@@ -1,6 +1,7 @@
 // Julia Gong
 // 9/27/25
 // TIMER header file to access TIM6
+// STM32L432KC_TIM6.h
 
 #include <stdint.h>
 #include <math.h>

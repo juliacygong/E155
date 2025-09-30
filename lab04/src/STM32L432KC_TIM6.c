@@ -1,6 +1,7 @@
 // Julia Gong
 // 9/27/25
 // initializing timer for MCU
+// STM32L432KC_TIM6.c
 
 #include "STM32L432KC_TIM6.h"
 #include "STM32L432KC_RCC.h"
