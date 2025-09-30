@@ -15,10 +15,9 @@ module fsm(input logic clk, reset,
 logic reset_count;
 logic [7:0] key_out, key_first;
 logic [2:0] counter;
-logic [7:0] key_f; 
 logic [3:0] row_now;
 
-
+// next state logic
 typedef enum logic [3:0] {WAIT, INPUT, INPUT_WAIT, HOLD, DEBOUNCE, DEBOUNCE_WAIT} statetype;
 statetype state, nextstate;
 
@@ -27,16 +26,18 @@ always_ff @(posedge clk, negedge reset) begin
     else                    state <= nextstate;
 end
 
+
+// counter ~50Hz
 always_ff @(posedge clk, negedge reset) begin
     if (~reset) 
         counter <= 3'b0;
     else if (~reset_count) 
         counter <= 3'b0;
     else 
-        counter <= counter + 5'd2;
+        counter <= counter + 3'd2;
 end
 
-
+// value sent to LUT
 always_ff @(posedge clk, negedge reset) begin
     if (~reset) begin
         key_out <= 8'b0000_0000;
@@ -46,12 +47,6 @@ always_ff @(posedge clk, negedge reset) begin
 	end
 end
 
-
-always_ff @(posedge clk, negedge reset)
-    if (~reset)
-        key_f <= 8'b1111_1111;
-    else if (row_stop && state == WAIT)  
-        key_f <= key_val;
 
 // FSM 
 always_comb begin
@@ -107,6 +102,7 @@ always_comb begin
     endcase
 end
 
+// keypad look up table
 keypadLUT key_dut(.key_out(key_out), .key_valid(key_valid), .key(key));
 
 

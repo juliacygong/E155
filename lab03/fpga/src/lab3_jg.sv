@@ -29,6 +29,7 @@ end
 
 assign select = counter[22]; // 80Hz
 
+// instantiating submodules
 
 scan scan_dut(.clk(select), .reset(reset), .cols(cols), .row_stop(row_stop), .key_row(key_row), .key_col(key_col), .key_val(key_val));
 

@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "*.sv": "systemverilogheader",
+        "stm32l432kc_tim16.h": "c"
+    }
+}

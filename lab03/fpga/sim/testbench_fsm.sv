@@ -14,7 +14,7 @@ module testbench_fsm();
     logic [3:0] key, key_col, row_current;
     logic [31:0] errors;
 
-    // Clock Generation (100MHz)
+
     always #5 clk = ~clk;
 
 
@@ -29,12 +29,12 @@ module testbench_fsm();
         .row_current(row_current)
     );
 
-    // Constants
+
     localparam DEBOUNCE_WAIT_CYCLES = 8;   // Counter[2] implies ~4 cycles @ 100MHz (based on counter width)
     localparam integer CYCLE = 10;         // One clock period (ns)
     localparam integer WAIT_DEBOUNCE = 4 * CYCLE * DEBOUNCE_WAIT_CYCLES;
 
-    // === TASKS ===
+
 
     // Reset
     task do_reset();
@@ -61,7 +61,7 @@ module testbench_fsm();
         input [3:0] expected_key
     );
         press_key(key_data, col_data);
-        repeat (10) @(posedge clk);  // Give time to settle
+        repeat (10) @(posedge clk);  
         repeat (DEBOUNCE_WAIT_CYCLES) @(posedge clk);
 
         if (!key_valid) begin
@@ -78,15 +78,15 @@ module testbench_fsm();
         repeat (DEBOUNCE_WAIT_CYCLES) @(posedge clk);
     endtask
 
-    // === TEST SEQUENCE ===
+
     initial begin
         errors = 0;
         do_reset();
 
-        // TEST 1: Simple key press
+        // Simple key press
         simulate_keypress(8'b0001_0001, 4'b0001, 4'b1010);  // row=0001, col=0001 (example key A)
 
-        // TEST 2: New key pressed while another is held
+        // New key pressed while another is held
         press_key(8'b1000_1000, 4'b1000); // Key 1 pressed
         repeat (2) @(posedge clk);
         press_key(8'b0100_0001, 4'b0001); // Key 2 pressed while holding
@@ -100,7 +100,7 @@ module testbench_fsm();
             $display("PASS: Multi-press test passed.");
         end
 
-        // TEST 3: Two keys pressed almost simultaneously
+        // Two keys pressed almost simultaneously
         press_key(8'b0100_0010, 4'b0010);
         #30;
         press_key(8'b0010_1000, 4'b1000);
@@ -114,7 +114,6 @@ module testbench_fsm();
             $display("PASS: Simultaneous press test passed.");
         end
 
-        // Final report
         $display("All tests completed with %0d error(s).", errors);
         $stop;
     end
