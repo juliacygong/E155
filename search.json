@@ -21,6 +21,55 @@
     "text": "This past week I was working on Lab 2 for E155. In this lab I learned a lot about writing testbenches. I am used to writing testbenches with testvectors, but I learned to write testbenches with for loops and assertions. I also learned about how PNP transistors work when implementing my design on the breadboard. I spent the most amount of time this week writing my testbenches to verify my code through simulation as well as debugging some small hardware issues. Everything in my lab works as expected!"
   },
   {
+    "objectID": "Labs/lab4/lab4.html",
+    "href": "Labs/lab4/lab4.html",
+    "title": "Lab 4: Digital Audio",
+    "section": "",
+    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#introduction",
+    "href": "Labs/lab4/lab4.html#introduction",
+    "title": "Lab 4: Digital Audio",
+    "section": "",
+    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
+    "href": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
+    "title": "Lab 4: Digital Audio",
+    "section": "MCU Design and Testing Methodology.",
+    "text": "MCU Design and Testing Methodology.\nThe design was developed by using two timers on the MCU: TIM16 and TIM6. TIM16 was used to create a PWM signal for the frequencies while TIM6 was used to calculate the delay in ms.\nThe maximum and minimum frequencies and durations for the system were calculated below. TIM16 used a prescalar value of 19 in order to divide the system clock into a 4MHz clock and TIM6 used a prescalar value of 39,999 in order to divide the system clock into a 2KHz clock.\nIn addition to calculations, the frequency of the square waves will be verified using the oscilloscope.\n\n\n\nFigure 1: This image shows the frequency and duration calculations.\n\n\nThis image shows that the pitches for frequencies in the range 220-1000 Hz, as well as a couple frequencies above and below are accurate within 1%. \n\nHardware Implementation\n\n\n\nFigure 3: This image shows the breadboard layout speaker system.\n\n\nThe components of this lab consisted of a LM386 op-amp, a 10kΩ potentiometer, and a 8Ω speaker. The op-amp was implemented to amplify the output signal from the MCU pin (PA6) and the potentiometer was used to adjust the volume of the system."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#technical-documentation",
+    "href": "Labs/lab4/lab4.html#technical-documentation",
+    "title": "Lab 4: Digital Audio",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the C and Header files for the main module, RCC, GPIO, FLASH, TIM6, and TIM16.\n\nSchematic\nThe schematic below depicts the pin assignments and connections for the MCU, potentiometer, op-amp, and speaker system.\n\n\n\nFigure 3: The image shows the schematic of the digital audio hardware system."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#results-and-discussion",
+    "href": "Labs/lab4/lab4.html#results-and-discussion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe digital audio system was able to play Fur Elise without sounding very crackly. Additionally, I was able to transpose a melody from one of my favorite jazz songs. Try to guess the song!\n\n\n\n\n\nFigure 5: This image shows the melody of the mystery song.\n\n\n\nOscilloscope Frequency Verification\nIn order to verify the frequencies produced by my design, I measured the frequency of the PA6 pin. To test the range of frequncies, I decided to test 200 Hz and 2000 Hz.\nThe oscilloscope trace of the 200 Hz PWM input, shows a square wave output from the PA6 pin where the output frequency is exactly 200 Hz! \nThe oscilloscope trace for the 2000 Hz PWM input showed the expected output of 2000 Hz. This shows that the design was able to accurately output frequencies less than 1%"
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#conclusion",
+    "href": "Labs/lab4/lab4.html#conclusion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design was successfully able to produce square waves at different frequencies using the timers and pins on the MCU. It was super exciting to hear the the songs play smoothly. For a while, I was able to hear my songs play but they sounded very crackly. I thought it was because my code for the frequency was incorrect, but I figured out that it was because my op-amp pins weren’t grounded.\nThis lab took a total of 12 hours."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#ai-prototype-summary",
+    "href": "Labs/lab4/lab4.html#ai-prototype-summary",
+    "title": "Lab 4: Digital Audio",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?\nThe response that I got from ChatGPT was very helpful because it provided me a list of all the timers with descriptions for their purposes. It also generated the timer frequency formula and provided an example calculation."
+  },
+  {
     "objectID": "Labs/lab2/lab2.html",
     "href": "Labs/lab2/lab2.html",
     "title": "Lab 2: Multiplexed 7-Segment Display",
@@ -165,7 +214,7 @@
     "href": "Labs/lab3/lab3.html#ai-prototype-summary",
     "title": "Lab 3: Keypad Scanner",
     "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nThe monolithic prompt generated a full design quickly, but it often blurred module boundaries, produced synthesis errors, and required more debugging. Breaking the task into modular prompts gave cleaner FSMs, improved readability, and made it easier to verify each piece before integration. The LLM’s use of enumerated states, always_ff, and glitch-free outputs was helpful, though keypad code mapping and active-low polarity sometimes needed correction. Overall, modularizing the prompts improved correctness and workflow efficiency, and in the future I would explicitly separate FSM responsibilities and clarify signal conventions upfront."
+    "text": "AI Prototype Summary\nFor this AI Prototype, I prompted ChatGPT to write SystemVerilog after giving different prompts. The monolithic prompt generated a full design quickly, but it often blurred module boundaries, produced synthesis errors, and required more debugging. Breaking the task into modular prompts gave cleaner FSMs, improved readability, and made it easier to verify each piece before integration. The LLM’s use of enumerated states, always_ff, and glitch-free outputs was helpful, though keypad code mapping and active-low polarity sometimes needed correction. Overall, modularizing the prompts improved correctness and workflow efficiency, and in the future I would explicitly separate FSM responsibilities and clarify signal conventions upfront."
   },
   {
     "objectID": "posts/Week1.html",

@@ -147,8 +147,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a></li>
+  <li><a href="#mcu-design-and-testing-methodology." id="toc-mcu-design-and-testing-methodology." class="nav-link" data-scroll-target="#mcu-design-and-testing-methodology.">MCU Design and Testing Methodology.</a>
+  <ul class="collapse">
+  <li><a href="#hardware-implementation" id="toc-hardware-implementation" class="nav-link" data-scroll-target="#hardware-implementation">Hardware Implementation</a></li>
+  </ul></li>
+  <li><a href="#technical-documentation" id="toc-technical-documentation" class="nav-link" data-scroll-target="#technical-documentation">Technical Documentation</a>
+  <ul class="collapse">
+  <li><a href="#schematic" id="toc-schematic" class="nav-link" data-scroll-target="#schematic">Schematic</a></li>
+  </ul></li>
+  <li><a href="#results-and-discussion" id="toc-results-and-discussion" class="nav-link" data-scroll-target="#results-and-discussion">Results and Discussion</a>
+  <ul class="collapse">
+  <li><a href="#oscilloscope-frequency-verification" id="toc-oscilloscope-frequency-verification" class="nav-link" data-scroll-target="#oscilloscope-frequency-verification">Oscilloscope Frequency Verification</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#ai-prototype-summary" id="toc-ai-prototype-summary" class="nav-link" data-scroll-target="#ai-prototype-summary">AI Prototype Summary</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -172,8 +192,77 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<p>In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch.</p>
+</section>
+<section id="mcu-design-and-testing-methodology." class="level2">
+<h2 class="anchored" data-anchor-id="mcu-design-and-testing-methodology.">MCU Design and Testing Methodology.</h2>
+<p>The design was developed by using two timers on the MCU: TIM16 and TIM6. TIM16 was used to create a PWM signal for the frequencies while TIM6 was used to calculate the delay in ms.</p>
+<p>The maximum and minimum frequencies and durations for the system were calculated below. TIM16 used a prescalar value of 19 in order to divide the system clock into a 4MHz clock and TIM6 used a prescalar value of 39,999 in order to divide the system clock into a 2KHz clock.</p>
+<p>In addition to calculations, the frequency of the square waves will be verified using the oscilloscope.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/freq_dur.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 1: This image shows the frequency and duration calculations.</figcaption>
+</figure>
+</div>
+<p>This image shows that the pitches for frequencies in the range 220-1000 Hz, as well as a couple frequencies above and below are accurate within 1%. <img src="images/pitch.png" class="img-fluid" alt="Figure 2: This image shows that the pitches for frequencies in the range 220-1000 Hz, as well as a couple frequencies above and below are accurate within 1%."></p>
+<section id="hardware-implementation" class="level3">
+<h3 class="anchored" data-anchor-id="hardware-implementation">Hardware Implementation</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/board3.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: This image shows the breadboard layout speaker system.</figcaption>
+</figure>
+</div>
+<p>The components of this lab consisted of a LM386 op-amp, a 10kΩ potentiometer, and a 8Ω speaker. The op-amp was implemented to amplify the output signal from the MCU pin (PA6) and the potentiometer was used to adjust the volume of the system.</p>
+</section>
+</section>
+<section id="technical-documentation" class="level2">
+<h2 class="anchored" data-anchor-id="technical-documentation">Technical Documentation</h2>
+<p>The code for this lab can be found in this <a href="https://github.com/juliacygong/E155/tree/main/lab04">Github repository</a>. This contains the code for the C and Header files for the main module, RCC, GPIO, FLASH, TIM6, and TIM16.</p>
+<section id="schematic" class="level3">
+<h3 class="anchored" data-anchor-id="schematic">Schematic</h3>
+<p>The schematic below depicts the pin assignments and connections for the MCU, potentiometer, op-amp, and speaker system.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/lab4_schematic.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 3: The image shows the schematic of the digital audio hardware system.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="results-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="results-and-discussion">Results and Discussion</h2>
+<p>The digital audio system was able to play Fur Elise without sounding very crackly. Additionally, I was able to transpose a melody from one of my favorite jazz songs. Try to guess the song!</p>
+<iframe src="https://drive.google.com/file/d/1uw85LcZXG10Emh3EIm2Y6yipRfLjObF2/preview" width="740" height="480" allow="autoplay">
+</iframe>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/song.png" class="img-fluid figure-img"></p>
+<figcaption>Figure 5: This image shows the melody of the mystery song.</figcaption>
+</figure>
+</div>
+<section id="oscilloscope-frequency-verification" class="level3">
+<h3 class="anchored" data-anchor-id="oscilloscope-frequency-verification">Oscilloscope Frequency Verification</h3>
+<p>In order to verify the frequencies produced by my design, I measured the frequency of the PA6 pin. To test the range of frequncies, I decided to test 200 Hz and 2000 Hz.</p>
+<p>The oscilloscope trace of the 200 Hz PWM input, shows a square wave output from the PA6 pin where the output frequency is exactly 200 Hz! <img src="images/200scope.JPG" class="img-fluid" alt="Figure 6: This image shows the oscilloscope trace for the 200 Hz input."></p>
+<p>The oscilloscope trace for the 2000 Hz PWM input showed the expected output of 2000 Hz. This shows that the design was able to accurately output frequencies less than 1% <img src="images/2000scope.JPG" class="img-fluid" alt="Figure 7: This image shows the oscilloscope trace for the 2000 Hz input."></p>
+</section>
+</section>
+<section id="conclusion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>The design was successfully able to produce square waves at different frequencies using the timers and pins on the MCU. It was super exciting to hear the the songs play smoothly. For a while, I was able to hear my songs play but they sounded very crackly. I thought it was because my code for the frequency was incorrect, but I figured out that it was because my op-amp pins weren’t grounded.</p>
+<p>This lab took a total of 12 hours.</p>
+</section>
+<section id="ai-prototype-summary" class="level2">
+<h2 class="anchored" data-anchor-id="ai-prototype-summary">AI Prototype Summary</h2>
+<p>For the AI prototype, I prompted ChatGPT with: What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?</p>
+<p>The response that I got from ChatGPT was very helpful because it provided me a list of all the timers with descriptions for their purposes. It also generated the timer frequency formula and provided an example calculation.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
