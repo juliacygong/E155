@@ -202,7 +202,8 @@ const int song[][2] = {
 {0, 500},
 {262, 1500},
 // measure 8
-{262, 2000}
+{262, 2000},
+{0, 0}
 };
 
 
@@ -214,34 +215,32 @@ int main(void) {
     init_PWM();
 
     // setting up RCC
-    RCC->APB2ENR |= (1 << 17); // enabling TIM16 clk
+    RCC->APB1ENR1 |= (1 << 4); // enabling TIM6 clk
     RCC->AHB2ENR |= (1 << 0); // enabling GPIOA clk
     // set GPIO PA6 to peripheral (10)
     pinMode(6, 2);
     // 0b1110 into bits 27:24, for pin 6, setting pin 6 to AF14
+    GPIO->AFRL &=  ~(0xF << (6 * 4)); 
     GPIO->AFRL |=  (14 << (6 * 4)); 
 
     int len_fur_elise = sizeof(fur_elise_notes) / sizeof(fur_elise_notes[0]);
         for (int i = 0; i < len_fur_elise; i++) {
             if (fur_elise_notes[i][1] == 0) {
                 PWM_freq(0);
-                return 0;
             }
             PWM_freq(fur_elise_notes[i][0]);
-            delay(fur_elise_notes[i][0]);
+            delay(fur_elise_notes[i][1]);
         }
     
     delay(3000);
 
     int len_song = sizeof(song) / sizeof(song[0]);
-        for (int i = 0; i < song; i++) {
+        for (int i = 0; i < len_song; i++) {
             if (song[i][1] == 0) {
                 PWM_freq(0);
-                return 0;
             }
             PWM_freq(song[i][0]);
-            delay(song[i][0]);
+            delay(song[i][1]);
         }
-
 
 }   
