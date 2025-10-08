@@ -168,6 +168,55 @@
     "text": "AI Prototype Summary\nFor the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.\nThe code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code. After providing more context, with another prompt, ChatGPT was able to produce better code.\nThe transcript of the chat, including the code generated, can be found here."
   },
   {
+    "objectID": "Labs/lab5/lab5.html",
+    "href": "Labs/lab5/lab5.html",
+    "title": "Lab 5: Interrupts",
+    "section": "",
+    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#introduction",
+    "href": "Labs/lab5/lab5.html#introduction",
+    "title": "Lab 5: Interrupts",
+    "section": "",
+    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
+    "href": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
+    "title": "Lab 5: Interrupts",
+    "section": "MCU Design and Testing Methodology.",
+    "text": "MCU Design and Testing Methodology.\nThe design was developed by using interrupts. Interrupts were used both from the signals from the encoders and the timer.\nThe interrupt for the quad encoder signals would fire when the system recorded a signal from the B or A signal, where the design detected all edges of the encoder pulses to achieve high resolution. The current state on the encoder would update respectively. A lookup table was implemented in order to create the counter logic, indicating when the encoder has changed states. The lookup table starts with 4 bits indicating the next state transitions from 00, where 0 represents an illegal state switch, 1 represents clockwise increase, and -1 represents counterclockwise decrease. The following 4 bits indicate the next state transitions for 01, then 10, and ending with 11. The indexing of the lookup table relies on the previous state shifted left two bits and the current state in the two least significant bits. The values from the lookup table are then added to the encoder count and the previous state gets the current state.\nThe interrupt for the timer fires every millisecond and once it counts to 1000 ms (1 second), the count difference is calculated and used to calculate the revolutions per second. The count difference is divided by 1632 because the design is decoding the rising and falling edges of A and B (4 total), and since the motor has 408 pulses per rotation. The rps is printed out every second and the timer resets to begin sampling again.\n\nHardware Implementation\nThe layout of the system was fairly simple. The MCU was directly connected to the pins of the motor, no external breadboarding was required."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#technical-documentation",
+    "href": "Labs/lab5/lab5.html#technical-documentation",
+    "title": "Lab 5: Interrupts",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c file as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU and the motor.\n\n\n\nFigure 3: The image shows the schematic of the digital audio hardware system."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#results-and-discussion",
+    "href": "Labs/lab5/lab5.html#results-and-discussion",
+    "title": "Lab 5: Interrupts",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe system was able to correctly calculate the angular velocity of the motor in both the clockwise and counter clockwise directions. When the supply voltage was 10V, the print in the debugger read around +- 2 rev/s (depending on the direction). Additionally, the ancular velocity increased and decreased in respones to voltage supplied to the motor and read 0 when the power supply was off.\n\nOscilloscope Interrupt Pin Toggling\nIn order to observe the tradeoffs between using interrupts and polling to measure the angular velocity, I wrote some code for polling so I can toggle a pin for both to compare the toggling frequency for interrupts and polling.\nThe oscilloscope trace for interrupts shows a frequency of 2.4kHz, indicating the speed in which the interrupts are occurring. This means that for the polling to be able to sample all the encoder state changes, it must be sampling at least 4.8kHz (two times the frequency of the interrupts) to sample all the state changes and avoid aliasing. \nThe oscilloscope trace for the polling shows are frequency of 2.20kHz as well as some breaks in the squre waves. This is likely because the system is polling too slowly to detect all the state changes."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#conclusion",
+    "href": "Labs/lab5/lab5.html#conclusion",
+    "title": "Lab 5: Interrupts",
+    "section": "Conclusion",
+    "text": "Conclusion\nI was able to design a system using interrupts to calculate the angular velocity of a motor using the rising and falling edges of the encoders! This lab took a total of 8 hours."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#ai-prototype-summary",
+    "href": "Labs/lab5/lab5.html#ai-prototype-summary",
+    "title": "Lab 5: Interrupts",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor my AI prototype, I prompted ChatGPT with: Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?\nChatGPT responded with the correct pins that can be used to connect the encoder to trigger interrupts, howevever, the interrupt handlers did not run. ChatGPT suggested that I use the TIM encoder mode and to not use EXTI/GPIO interrupts unless they were necessary. I found this interesting since I was using EXTI interrupts in this lab and thought that they did they job well."
+  },
+  {
     "objectID": "Labs/lab3/lab3.html",
     "href": "Labs/lab3/lab3.html",
     "title": "Lab 3: Keypad Scanner",
