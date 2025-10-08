@@ -9,7 +9,6 @@
 void init_delay() {
 // enable clock for timer
     RCC->APB1ENR1 |= (1 << 4);
-// 
 // set up prescalar value, setting clock to 1kz
     TIM6->PSC = 39999;
 // set update generation to reinitialize counter

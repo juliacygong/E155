@@ -32,6 +32,6 @@ typedef struct{
 
 // delays
 void init_delay(void);
-void delay(int song_duration);
+void delay(int ms);
 
 #endif
