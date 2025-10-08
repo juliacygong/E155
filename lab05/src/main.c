@@ -112,100 +112,49 @@ while(1){
 
 //// for polling
 //int main(void) {
-//// enabling pins are inputs 
-//gpioEnable(GPIO_PORT_A); 
-//pinMode(PA6, GPIO_INPUT); // setting PA6 
-//pinMode(PA7, GPIO_INPUT); // setting PA7 
-//pinMode(PA2, GPIO_OUTPUT); // toggle pin measurement
-
-//GPIOA->PUPDR |= _VAL2FLD(GPIO_PUPDR_PUPD6, 0b01); // set PA6 as pull-up 
-//GPIOA->PUPDR |= _VAL2FLD(GPIO_PUPDR_PUPD7, 0b01); // set PA7 as pull-up 
-
-//// enable SYSCFG clock domain in RCC 
-//RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN; 
-
-//// number of clock cycles per ms 
-//SysTick_Config(SystemCoreClock/1000); 
-
-//int volatile count = 0;
-//int volatile prev_count = count;
-//static uint8_t prev_state = 0;
-
-//// Initialize timer
-//RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
-//initTIM(TIM2);
-
-
-//while(1){
-
-//GPIOA->ODR ^= (1 << 2);
-//uint8_t A = digitalRead(PA6);
-//uint8_t B = digitalRead(PA7);
-//uint8_t curr_state = (A << 1) | B;
-//uint8_t index = (prev_state << 2) | curr_state;
-//count += lookup[index & 0x0F];
-//prev_state = curr_state; 
-
-
-//int32_t delta_count = count - prev_count;
-//prev_count = count;
-
-//float rps = delta_count / 1632.0f; 
-//printf("Angular velocity in rev/s: %.3f \n", rps);
-
-//}
-
-
-//}
-
-//int main(void) {
-//    // --- GPIO setup ---
+//    // gpio inputs and outputs
 //    gpioEnable(GPIO_PORT_A); 
 //    pinMode(PA6, GPIO_INPUT); 
 //    pinMode(PA7, GPIO_INPUT); 
 //    pinMode(PA2, GPIO_OUTPUT); 
 
-//    // Pull-ups
-//    GPIOA->PUPDR &= ~(_VAL2FLD(GPIO_PUPDR_PUPD6, 0b11));
-//    GPIOA->PUPDR |=  _VAL2FLD(GPIO_PUPDR_PUPD6, 0b01);
-//    GPIOA->PUPDR &= ~(_VAL2FLD(GPIO_PUPDR_PUPD7, 0b11));
-//    GPIOA->PUPDR |=  _VAL2FLD(GPIO_PUPDR_PUPD7, 0b01);
+//    // set pins as pullups
+//    GPIOA->PUPDR |= _VAL2FLD(GPIO_PUPDR_PUPD6, 0b01); // set PA6 as pull-up 
+//    GPIOA->PUPDR |= _VAL2FLD(GPIO_PUPDR_PUPD7, 0b01); // set PA7 as pull-up 
 
-//    // --- Timer for 1 ms ticks (for velocity calculation) ---
+//    // set up timer
 //    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
 //    TIM2->CR1 = 0;
 //    TIM2->CNT = 0;
-//    TIM2->PSC = (SystemCoreClock / 1000) - 1;
+//    TIM2->PSC = (SystemCoreClock / 1000);
 //    TIM2->ARR = 0xFFFFFFFF;
 //    TIM2->EGR = TIM_EGR_UG;
 //    TIM2->CR1 |= TIM_CR1_CEN;
 
-//    // --- Encoder variables ---
+//    // variables for encoder
 //    int32_t count = 0;
 //    int32_t prev_count = 0;
 //    uint8_t prev_state = 0;
 //    uint32_t prev_time = TIM2->CNT;
 
 //    while (1) {
-//        // Read encoder pins
+//        // read encoder pins
 //        uint8_t A = digitalRead(PA6);
 //        uint8_t B = digitalRead(PA7);
+//        // set current state
 //        uint8_t curr_state = (A << 1) | B;
 
-//        // Only process if state has changed
+//        // add to counter when state change detected
 //        if (curr_state != prev_state) {
-//            // Update count based on quadrature table
 //            uint8_t index = (prev_state << 2) | curr_state;
 //            count += lookup[index & 0x0F];
 
-//            // Toggle pin to indicate poll happened
+//            // toggle pin to indicate polling
 //            GPIOA->ODR ^= (1 << 2);
-
-//            // Save new state
 //            prev_state = curr_state;
 //        }
 
-//        // --- Update velocity every 1 second ---
+//        // calculating angular velocity every second
 //        uint32_t curr_time = TIM2->CNT;
 //        if ((uint32_t)(curr_time - prev_time) >= 1000) {
 //            int32_t delta_count = count - prev_count;
