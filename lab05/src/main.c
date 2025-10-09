@@ -13,6 +13,9 @@ const int16_t lookup[16] = { 0, -1, 1, 0, // 00 {00,01,10,11}
                             -1, 0, 0, 1, // 10 {00,01,10,11} 
                             0, 1, -1, 0 }; // 11 {00,01,10,11}
 
+// handles external interrupts for pins 5-9
+// triggers for when EXTI lines for pins 6 and 7 detect an event on the rising and falling edges
+// has lower priority, interrupt handles multiple pins, interrupt pending bit must be cleared
 void EXTI9_5_IRQHandler(void) { 
 
 GPIOA->ODR ^= (1 << 2); // pin toggles
@@ -43,6 +46,8 @@ prev_state = curr_state;
 // printf("A=%d, B=%d, curr_state=%d, prev_state = %d, \n", A, B, curr_state, prev_state);
 }
 
+// has priority over EXTI9_5_IRQHandler
+// uses the MCU core clock and interrupts based on clock tick
 void SysTick_Handler(void) { 
 
 time++; // count to 1000ms 
@@ -112,7 +117,7 @@ while(1){
 
 //// for polling
 //int main(void) {
-//    // gpio inputs and outputs
+//// gpio inputs and outputs
 //    gpioEnable(GPIO_PORT_A); 
 //    pinMode(PA6, GPIO_INPUT); 
 //    pinMode(PA7, GPIO_INPUT); 
@@ -126,7 +131,7 @@ while(1){
 //    RCC->APB1ENR1 |= RCC_APB1ENR1_TIM2EN;
 //    TIM2->CR1 = 0;
 //    TIM2->CNT = 0;
-//    TIM2->PSC = (SystemCoreClock / 1000);
+//    TIM2->PSC = (SystemCoreClock / 1000) - 1;
 //    TIM2->ARR = 0xFFFFFFFF;
 //    TIM2->EGR = TIM_EGR_UG;
 //    TIM2->CR1 |= TIM_CR1_CEN;

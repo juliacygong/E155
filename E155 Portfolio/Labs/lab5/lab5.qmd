@@ -26,7 +26,10 @@ The code for this lab can be found in this [Github repository](https://github.co
 ### Schematic
 The schematic below depicts the connections between the MCU and the motor. 
 
-![Figure 3: The image shows the schematic of the digital audio hardware system.](images/lab5_schematic.png)
+![Figure 1: The image shows the schematic of the digital audio hardware system.](images/lab5_schematic.png)
+
+The flow chart below shows how interrupts are handled in the system.
+![Figure 2: The image shows the flow chart for the interrupts.](images/flowchart.png)
 
 
 ## Results and Discussion
@@ -37,10 +40,10 @@ The system was able to correctly calculate the angular velocity of the motor in 
 In order to observe the tradeoffs between using interrupts and polling to measure the angular velocity, I wrote some code for polling so I can toggle a pin for both to compare the toggling frequency for interrupts and polling.
 
 The oscilloscope trace for interrupts shows a frequency of 2.4kHz, indicating the speed in which the interrupts are occurring. This means that for the polling to be able to sample all the encoder state changes, it must be sampling at least 4.8kHz (two times the frequency of the interrupts) to sample all the state changes and avoid aliasing. 
-![Figure 7: This image shows the oscilloscope trace for interrupts.](images/itrace.JPG)
+![Figure 3: This image shows the oscilloscope trace for interrupts.](images/itrace.JPG)
 
 The oscilloscope trace for the polling shows are frequency of 2.20kHz as well as some breaks in the squre waves. This is likely because the system is polling too slowly to detect all the state changes.
-![Figure 6: This image shows the oscilloscope trace polling.](images/pscope.JPG)
+![Figure 4: This image shows the oscilloscope trace polling.](images/pscope.JPG)
 
 ## Conclusion
 I was able to design a system using interrupts to calculate the angular velocity of a motor using the rising and falling edges of the encoders!
