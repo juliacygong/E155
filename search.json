@@ -193,7 +193,7 @@
     "href": "Labs/lab5/lab5.html#technical-documentation",
     "title": "Lab 5: Interrupts",
     "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c file as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU and the motor.\n\n\n\nFigure 3: The image shows the schematic of the digital audio hardware system."
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c file as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU and the motor.\n\n\n\nFigure 1: The image shows the schematic of the digital audio hardware system.\n\n\nThe flow chart below shows how interrupts are handled in the system."
   },
   {
     "objectID": "Labs/lab5/lab5.html#results-and-discussion",
