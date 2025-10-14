@@ -2,6 +2,7 @@
 title: "Lab 5: Interrupts"
 
 ---
+
 ## Introduction
 In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor. 
 
