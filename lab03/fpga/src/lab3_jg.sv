@@ -11,6 +11,7 @@ module lab3_jg(input logic reset,
                output logic [6:0] seg,
 );
 
+// internal logic
 logic int_osc, select, key_valid, row_stop; 
 logic [3:0] s, r_sync, c_sync, cols_sync, rows_sync, key_col, key; 
 logic [23:0] counter;
