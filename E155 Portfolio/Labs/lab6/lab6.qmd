@@ -8,48 +8,52 @@ In this lab, the objective was to design and build a simple IoT device, write C 
 
 
 ## MCU Design and Testing Methodology. 
-The design was developed by using interrupts. Interrupts were used both from the signals from the encoders and the timer. 
+The MCU interface consisted of UART communication to the ESP8266 and SPI communication to the temperature sensor. Inputs for the temperature sensor inputs relied on values received by the MCU through UART.
 
+To create the digital interface for the lab, the MCU must supply a webpage to the ESP8266 and interpret its requests. The 125000 baud serial UART connection on the MCU and UART TX and RX lines of the ESP8266 were used to interface between the devices. Therefore, the ESP8266 updates the webpage from the MCU, sending the most recent request from the user. The MCU then transmits a webpage encoded as an HTML file to the ESP8266. The ESP8266 creates a WIFI access point. Once connecting to the network, http://192.168.4.1/ displays the webpage. 
 
-The interrupt for the quad encoder signals would fire when the system recorded a signal from the B or A signal, where the design detected all edges of the encoder pulses to achieve high resolution. The current state on the encoder would update respectively. A lookup table was implemented in order to create the counter logic, indicating when the encoder has changed states. The lookup table starts with 4 bits indicating the next state transitions from 00, where 0 represents an illegal state switch, 1 represents clockwise increase, and -1 represents counterclockwise decrease. The following 4 bits indicate the next state transitions for 01, then 10, and ending with 11. The indexing of the lookup table relies on the previous state shifted left two bits and the current state in the two least significant bits. The values from the lookup table are then added to the encoder count and the previous state gets the current state.
-
-The interrupt for the timer fires every millisecond and once it counts to 1000 ms (1 second), the count difference is calculated and used to calculate the revolutions per second. The count difference is divided by 1632 because the design is decoding the rising and falling edges of A and B (4 total), and since the motor has 408 pulses per rotation. The rps is printed out every second and the timer resets to begin sampling again.
-
+Temperature sensor resolution commands receieved from the user to the MCU are then used to determine the write and read commands sent to the temperature sensor over SPI. The number of resolution bits is first written to the temperature sensor register, and then a read register command reads 2 bytes of data that contain the temperature. The 2 bytes are split into the MSB and LSB byte, where the MSB contains a signed bit. The equation $Temp = MSB + LSB/256.0$ was used to extract the correct temperature from these bytes. This value is then included on the webpage and sent to the ESP8266 over UART. 
 
 ### Hardware Implementation
-The system hardware included connection to the EPP8266 and temperature sensor. The ESP8266 was directly placed into the MikroBUS socket on the development board while the temperature sensor was directly connected to the MCU pins. 
+The system hardware included connection to the ESP8266 and temperature sensor. The ESP8266 was directly placed into the MikroBUS socket on the development board while the temperature sensor and LED were directly connected to the MCU pins. 
 
 ## Technical Documentation
-The code for this lab can be found in this [Github repository](https://github.com/juliacygong/E155/tree/main/lab05). This contains the code for main.c file as well as external libraries used. 
+The code for this lab can be found in this [Github repository](https://github.com/juliacygong/E155/tree/main/lab06/src). This contains the code for main.c, SPI configuration, temperature sensor configuration as well as external libraries used. 
 
 ### Schematic
-The schematic below depicts the connections between the MCU and the motor. 
+The schematic below depicts the connections between the MCU, LED, ESP8266, and the temperature sensor. 
 
-![Figure 1: The image shows the schematic of the digital audio hardware system.](images/lab5_schematic.png)
-
-The flow chart below shows how interrupts are handled in the system.
-![Figure 2: The image shows the flow chart for the interrupts.](images/flowchart.png)
+![Figure 1: The image shows the schematic of the MCU connections with the peripherals.](images/lab6schematic.jpeg)
 
 
 ## Results and Discussion
-The system was able to correctly calculate the angular velocity of the motor in both the clockwise and counter clockwise directions. When the supply voltage was 10V, the print in the debugger read around +- 2 rev/s (depending on the direction). Additionally, the ancular velocity increased and decreased in respones to voltage supplied to the motor and read 0 when the power supply was off. 
+The system was able to correctly interface with the LED and temperature sensor through the HTML website. The website clearly displays the temperature sensor readings as well as buttons to select the resolution for the temperature sensor. The display shows how the temperature sensor readings get more precise as the resolution increases. 
 
-### Oscilloscope Interrupt Pin Toggling
+<iframe src="https://drive.google.com/file/d/1Vby-pSSeZ3AxWrfpYfxx-3frQddxamIw/view?usp=sharing" 
+        width="740" height="480" allow="autoplay"></iframe>
 
-In order to observe the tradeoffs between using interrupts and polling to measure the angular velocity, I wrote some code for polling so I can toggle a pin for both to compare the toggling frequency for interrupts and polling.
+### SPI Logic Analyzer Trace 
 
-The oscilloscope trace for interrupts shows a frequency of 2.4kHz, indicating the speed in which the interrupts are occurring. This means that for the polling to be able to sample all the encoder state changes, it must be sampling at least 4.8kHz (two times the frequency of the interrupts) to sample all the state changes and avoid aliasing. 
-![Figure 3: This image shows the oscilloscope trace for interrupts.](images/itrace.JPG)
+A logic analyzer was used to debug and verify SPI communication.
 
-The oscilloscope trace for the polling shows are frequency of 2.20kHz as well as some breaks in the squre waves. This is likely because the system is polling too slowly to detect all the state changes.
-![Figure 4: This image shows the oscilloscope trace polling.](images/pscope.JPG)
+* DO shows SPI chip select
+* D1 shows the CLK
+* D2 shows MISO (microcontroller in, peripheral out)
+* D3 shows MOSI (microcontroller out, peripheral in)
+
+After the chip select goes high for the first time, the microcontroller sends 0x80, which indicates the address of the write config register, followed by 0xE0, which sets up an 8-bit temperature resolution. After the chip select goes high for the second time, the microcontroller sends 0x02 to read the MSB followed by 0x00 which is a filler command so that the microcontroller can receive data from the temperature sensor. The microcontroller receives 0x17 for the MSB. Then, the microcontroller sends 0x01 followed by a filler 0x00 command to read and receive the LSB from the temperature sensor. The microcontroller reads 0x00. Decoding the temperature results in $Temp = 23 + \frac{0}{256} = 23 ^\circ C$
+
+![Figure 2: The image above shows the logic analyzer trace for an 8 bit temperature sensor command.](images/lab6scope.JPG)
 
 ## Conclusion
-I was able to design a system using interrupts to calculate the angular velocity of a motor using the rising and falling edges of the encoders!
-This lab took a total of 8 hours. 
+I was able to design a system that interfaces with a temperature sensor using SPI and ESP8266 using UART to create a webpage that controls and displays the temperature data!
+This lab took a total of 12 hours. 
 
 ## AI Prototype Summary
-For my AI prototype, I prompted ChatGPT with: Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?
+For my AI prototype I asked ChatGPT these two prompts: 
 
-ChatGPT responded with the correct pins that can be used to connect the encoder to trigger interrupts, howevever, the interrupt handlers did not run. ChatGPT suggested that I use the TIM encoder mode and to not use EXTI/GPIO interrupts unless they were necessary. I found this interesting since I was using EXTI interrupts in this lab and thought that they did they job well. 
+* I’m making a web portal to interface with a temperature sensor. Create a HTML page that looks good and is intuitive to show the temperature, control an LED, and change the precision of the readout.
+* Write me a C function to carry out a SPI transaction to retrieve a temperature reading from a DS1722 sensor. Make use of CMSIS libraries for the STM32L432KC.
+
+For the first prompt ChatGPT produced a webpage that was a lot more aesthetically pleasing than mine, which included aspects such as different colors and font sizes. As for the second prompt ChatGPT was able to produce code for SPi communication, but it was incorrect. It got the phase for the temperature sensor wrong and wasn't able to properly calculate the temperature reading. 
  
