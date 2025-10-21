@@ -29,7 +29,7 @@ The schematic below depicts the connections between the MCU, LED, ESP8266, and t
 ## Results and Discussion
 The system was able to correctly interface with the LED and temperature sensor through the HTML website. The website clearly displays the temperature sensor readings as well as buttons to select the resolution for the temperature sensor. The display shows how the temperature sensor readings get more precise as the resolution increases. 
 
-<iframe src="https://drive.google.com/file/d/1Vby-pSSeZ3AxWrfpYfxx-3frQddxamIw/view?usp=sharing" 
+<iframe src="https://drive.google.com/file/d/1Vby-pSSeZ3AxWrfpYfxx-3frQddxamIw/preview" 
         width="740" height="480" allow="autoplay"></iframe>
 
 ### SPI Logic Analyzer Trace 
