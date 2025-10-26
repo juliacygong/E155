@@ -137,11 +137,11 @@ int main(void) {
   sendString(USART, ledStr); // button for controlling LED
   sendString(USART, tempStr); // buttons for controlling temp bits
 
-  //sendString(USART, "<h2>LED Status </h2>");
+  sendString(USART, "<h2>LED Status </h2>");
 
-  //sendString(USART, "<p>");
-  //sendString(USART, ledStatusStr);
-  //sendString(USART, "</p>");
+  sendString(USART, "<p>");
+  sendString(USART, ledStatusStr);
+  sendString(USART, "</p>");
 
   sendString(USART, "<p>");
   sendString(USART, tempStatusStr);
