@@ -1,10 +1,10 @@
 [
   {
-    "objectID": "blog.html",
-    "href": "blog.html",
-    "title": "Blog",
+    "objectID": "project.html",
+    "href": "project.html",
+    "title": "Final Project",
     "section": "",
-    "text": "Week 2 Reflections\n\n\nLab 2 E155 Blog\n\n\n\n\n\nSep 9, 2025\n\n\nJulia Gong\n\n\n\n\n\n\n\n\n\n\n\n\nWeek 1 Reflections\n\n\nLab 1 E155 Blog\n\n\n\n\n\nSep 2, 2025\n\n\nJulia Gong\n\n\n\n\n\n\n\n\n\n\n\n\nInitial Reflections\n\n\nInitial Fall E155 Blog\n\n\n\n\n\nAug 29, 2025\n\n\nJulia Gong\n\n\n\n\n\nNo matching items"
+    "text": "For the final project in E155, we needed to integrate the MCU and FPGA to create a design of our choice. I was interested creating a larger digital design on the FPGA to learn more about implementing algorithms in hardware, resource usage, and crossing clock domains.\nMy partner and I chose to make a live music transcriber, where we could sample analog inputs from a microphone using the MCU’s internal ADC, and then send the samples through SPI to the FPGA to process the FFT, decode the note and duration, and display the note on a score using VGA.\nVisit this website to learn more about our design!"
   },
   {
     "objectID": "Resources/resources.html",
@@ -12,258 +12,6 @@
     "title": "E155 Resources",
     "section": "",
     "text": "For external resources and information regarding my labs and project, please reference the E155 website here.\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "posts/Week2.html",
-    "href": "posts/Week2.html",
-    "title": "Week 2 Reflections",
-    "section": "",
-    "text": "This past week I was working on Lab 2 for E155. In this lab I learned a lot about writing testbenches. I am used to writing testbenches with testvectors, but I learned to write testbenches with for loops and assertions. I also learned about how PNP transistors work when implementing my design on the breadboard. I spent the most amount of time this week writing my testbenches to verify my code through simulation as well as debugging some small hardware issues. Everything in my lab works as expected!"
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html",
-    "href": "Labs/lab4/lab4.html",
-    "title": "Lab 4: Digital Audio",
-    "section": "",
-    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#introduction",
-    "href": "Labs/lab4/lab4.html#introduction",
-    "title": "Lab 4: Digital Audio",
-    "section": "",
-    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
-    "href": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
-    "title": "Lab 4: Digital Audio",
-    "section": "MCU Design and Testing Methodology.",
-    "text": "MCU Design and Testing Methodology.\nThe design was developed by using two timers on the MCU: TIM16 and TIM6. TIM16 was used to create a PWM signal for the frequencies while TIM6 was used to calculate the delay in ms.\nThe maximum and minimum frequencies and durations for the system were calculated below. TIM16 used a prescalar value of 19 in order to divide the system clock into a 4MHz clock and TIM6 used a prescalar value of 39,999 in order to divide the system clock into a 2KHz clock.\nIn addition to calculations, the frequency of the square waves will be verified using the oscilloscope.\n\n\n\nFigure 1: This image shows the frequency and duration calculations.\n\n\nThis image shows that the pitches for frequencies in the range 220-1000 Hz, as well as a couple frequencies above and below are accurate within 1%. \n\nHardware Implementation\n\n\n\nFigure 3: This image shows the breadboard layout speaker system.\n\n\nThe components of this lab consisted of a LM386 op-amp, a 10kΩ potentiometer, and a 8Ω speaker. The op-amp was implemented to amplify the output signal from the MCU pin (PA6) and the potentiometer was used to adjust the volume of the system."
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#technical-documentation",
-    "href": "Labs/lab4/lab4.html#technical-documentation",
-    "title": "Lab 4: Digital Audio",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the C and Header files for the main module, RCC, GPIO, FLASH, TIM6, and TIM16.\n\nSchematic\nThe schematic below depicts the pin assignments and connections for the MCU, potentiometer, op-amp, and speaker system.\n\n\n\nFigure 3: The image shows the schematic of the digital audio hardware system."
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#results-and-discussion",
-    "href": "Labs/lab4/lab4.html#results-and-discussion",
-    "title": "Lab 4: Digital Audio",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe digital audio system was able to play Fur Elise without sounding very crackly. Additionally, I was able to transpose a melody from one of my favorite jazz songs. Try to guess the song!\n\n\n\n\n\nFigure 5: This image shows the melody of the mystery song.\n\n\n\nOscilloscope Frequency Verification\nIn order to verify the frequencies produced by my design, I measured the frequency of the PA6 pin. To test the range of frequncies, I decided to test 200 Hz and 2000 Hz.\nThe oscilloscope trace of the 200 Hz PWM input, shows a square wave output from the PA6 pin where the output frequency is exactly 200 Hz! \nThe oscilloscope trace for the 2000 Hz PWM input showed the expected output of 2000 Hz. This shows that the design was able to accurately output frequencies less than 1%"
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#conclusion",
-    "href": "Labs/lab4/lab4.html#conclusion",
-    "title": "Lab 4: Digital Audio",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe design was successfully able to produce square waves at different frequencies using the timers and pins on the MCU. It was super exciting to hear the the songs play smoothly. For a while, I was able to hear my songs play but they sounded very crackly. I thought it was because my code for the frequency was incorrect, but I figured out that it was because my op-amp pins weren’t grounded.\nThis lab took a total of 12 hours."
-  },
-  {
-    "objectID": "Labs/lab4/lab4.html#ai-prototype-summary",
-    "href": "Labs/lab4/lab4.html#ai-prototype-summary",
-    "title": "Lab 4: Digital Audio",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?\nThe response that I got from ChatGPT was very helpful because it provided me a list of all the timers with descriptions for their purposes. It also generated the timer frequency formula and provided an example calculation."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html",
-    "href": "Labs/lab2/lab2.html",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "",
-    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#introduction",
-    "href": "Labs/lab2/lab2.html#introduction",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "",
-    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
-    "href": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "FPGA Design and Testing Methodology.",
-    "text": "FPGA Design and Testing Methodology.\nThe design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.\nSince 60Hz is the largest frequency that humans can process, I decided to toggle the counter at 80Hz so that the frequency would not be too fast that they numbers would bleed together.\nThe led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.\n\nHardware Implementation\n\n\n\nFigure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.\n\n\nThe components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.\nWhen implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. Since there was a PNP transistor connected to the anodes, there is a Vceast of 200mV. Additionally, there is a voltage drop from the LED segment of 1.8V. Using V = IR, (3.3V - 0.2V - 1.8V)/10mA = R, where R = 130Ω.\nThe resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the datasheet and 8mA is the current limit.\nFor the LEDs, the voltage drop for a red LED is approximately 2.1 V and the desired current is around 10mA. Using the equation V = IR, R = (3.3-2.1V)/20mA = 110. To ensure the proper current I used 220Ω resistors."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#technical-documentation",
-    "href": "Labs/lab2/lab2.html#technical-documentation",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.\n\nBlock Diagram\nThe block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.\n\n\n\nFigure 2: This image shows the block diagram that connects all the modules.\n\n\n\n\nSchematic\nThe schematic below depicts the pin assignments for the hardware components.\n\n\n\nFigure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#results-and-discussion",
-    "href": "Labs/lab2/lab2.html#results-and-discussion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nAll of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.\n\nTestbench Simulation\nThe waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.\n \nThe waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display.  \nThe waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input.  \nThe waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#conclusion",
-    "href": "Labs/lab2/lab2.html#conclusion",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.\nThis lab took a total of 8 hours."
-  },
-  {
-    "objectID": "Labs/lab2/lab2.html#ai-prototype-summary",
-    "href": "Labs/lab2/lab2.html#ai-prototype-summary",
-    "title": "Lab 2: Multiplexed 7-Segment Display",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.\nAfter evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.\nThe link to the conversation can be found here."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html",
-    "href": "Labs/lab1/lab1.html",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "",
-    "text": "In Lab 1, a development board containing a FPGA (UPduino v3.1) and MCU (mikroBUS_Socket) was soldered together. The objective of the lab was to program the FPGA with Verilog code that responds to 4 input DIP switches and outputs a specific seven segment display as well as three LED displays. Other learning outcomes of the lab consisted of soldering, testing, and debugging circuits and Verilog."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#introduction",
-    "href": "Labs/lab1/lab1.html#introduction",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "",
-    "text": "In Lab 1, a development board containing a FPGA (UPduino v3.1) and MCU (mikroBUS_Socket) was soldered together. The objective of the lab was to program the FPGA with Verilog code that responds to 4 input DIP switches and outputs a specific seven segment display as well as three LED displays. Other learning outcomes of the lab consisted of soldering, testing, and debugging circuits and Verilog."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#fpga-design-and-testing-methodology.",
-    "href": "Labs/lab1/lab1.html#fpga-design-and-testing-methodology.",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "FPGA Design and Testing Methodology.",
-    "text": "FPGA Design and Testing Methodology.\nThe following tables from the lab instructions establish the relationship between the various inputs and outputs on the development board.\n\n\n\nFigure 1: This table displays the inputs and outputs required in the FPGA design.\n\n\n\n\n\nFigure 2: This table defines the relationship between the input DIP switches and the led outputs.\n\n\nThe design was developed using a clock divider, boolean algebra, and multiplexers. The clock divider would create the 2.4Hz oscillating LED, the boolean algebra would select between the DIP switch input signals to determine the other LED outputs, and the multiplexers would select the corresponding segment outputs for the 7-segment display. The 7-segment displays all the hexidecimal digits distinctly.\nThe 7-segment display has a common anode, meaning that the cathode must be grounding in order to cause the LED to turn on. Therefore, the Verilog code would send a “0” to turn on a segment and a “1” to turn off a segment.\nThe outputs of the LEDs and 7-segment display would be verified using a self-checking testbench and an oscilloscope trace.\n\nHardware Implementation\nThe development board was assembled by soldering votage regulars, SMT components (resistors, capacitors, and LEDs), and various THT components. The schematic of the development board layout can be found here.\n\n\n\nFigure 3: This image depicts the completed development board.\n\n\n\n\n\nFigure 4: This image depicts the physical breadboard layout of the 7-segment display.\n\n\nThe resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the datasheet. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#technical-documentation",
-    "href": "Labs/lab1/lab1.html#technical-documentation",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe source code from this lab can be found in my Github repository. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.\n\nBlock Diagram\nThe block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.\n\n\n\nFigure 5: This image depicts the block diagram for the two Verilog modules\n\n\n\n\nSchematic\nThe schmatic outlines the FPGA pin assigments for the 4 DIP switches, LEDs, and 7-segment display.\n\n\n\nFigure 6: This image depicts the schematic for the FPGA and 7-segment display."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#results-and-discussion",
-    "href": "Labs/lab1/lab1.html#results-and-discussion",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe results of this lab were verified using an automatic testbench simulation on Questa and an oscilloscope trace to verify the LED oscillating frequency. The video below shows the 7-segment display and LEDs responding to DIP switch inputs.\n\n\nTestbench Simulation\n \nThe waveforms and transcript from the Questa simulation show that the expected outputs matched the outputs in the Verilog modules. All 16 tests were completed with no errors.\n\n\nOscilloscope Trace\nThe desired frequency for led[2] was 2.4Hz. The oscilloscope trace shows that the measured frequency for led[2] was 2.4Hz.\n\n\n\nFigure 8: This image depicts the oscilloscope trace of the LED. The frequency of the LED is shown on the bottom left."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#conclusion",
-    "href": "Labs/lab1/lab1.html#conclusion",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "Conclusion",
-    "text": "Conclusion\nThe design meets all of the requirements for the lab. The development board is completely finished and put together, and the outputs for the 7-segment display and the LEDs all match the expected outputs. All the hexidecimal digits displayed on the 7-segment display are unique, and each segment has the same brightness.\nI spent a total number of 15 hours on this lab. A large amount of time in this lab was spent soldering as well as learning about the Lattice Radiant enviroment. There were many small errors I made along the way as well as specific details about Lattice Radiant that could have been helpful to know about in the Lab 1 description. A tip that could have been very helpful would be how to navigate the “FTDI Error” that occurs when trying to program the FPGA."
-  },
-  {
-    "objectID": "Labs/lab1/lab1.html#ai-prototype-summary",
-    "href": "Labs/lab1/lab1.html#ai-prototype-summary",
-    "title": "Lab 1: FPGA and MCU Setup and Testing",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.\nThe code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code. After providing more context, with another prompt, ChatGPT was able to produce better code.\nThe transcript of the chat, including the code generated, can be found here."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html",
-    "href": "Labs/lab6/lab6.html",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "",
-    "text": "In this lab, the objective was to design and build a simple IoT device, write C libraries to implement SPI on the MCU and interface with a temperature sensor, interface with a ESP8266 module using UART, and write an HTML page to control an LED and temperature sensor. The webpage allows users to select the output resolution for the temperature sensor and displays the temperature sensor reading. When selecting a specific resolution on the webpage, the MCU would then send the specific write and read commands to the temperature sensor."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#introduction",
-    "href": "Labs/lab6/lab6.html#introduction",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "",
-    "text": "In this lab, the objective was to design and build a simple IoT device, write C libraries to implement SPI on the MCU and interface with a temperature sensor, interface with a ESP8266 module using UART, and write an HTML page to control an LED and temperature sensor. The webpage allows users to select the output resolution for the temperature sensor and displays the temperature sensor reading. When selecting a specific resolution on the webpage, the MCU would then send the specific write and read commands to the temperature sensor."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#mcu-design-and-testing-methodology.",
-    "href": "Labs/lab6/lab6.html#mcu-design-and-testing-methodology.",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "MCU Design and Testing Methodology.",
-    "text": "MCU Design and Testing Methodology.\nThe MCU interface consisted of UART communication to the ESP8266 and SPI communication to the temperature sensor. Inputs for the temperature sensor inputs relied on values received by the MCU through UART.\nTo create the digital interface for the lab, the MCU must supply a webpage to the ESP8266 and interpret its requests. The 125000 baud serial UART connection on the MCU and UART TX and RX lines of the ESP8266 were used to interface between the devices. Therefore, the ESP8266 updates the webpage from the MCU, sending the most recent request from the user. The MCU then transmits a webpage encoded as an HTML file to the ESP8266. The ESP8266 creates a WIFI access point. Once connecting to the network, http://192.168.4.1/ displays the webpage.\nTemperature sensor resolution commands receieved from the user to the MCU are then used to determine the write and read commands sent to the temperature sensor over SPI. The number of resolution bits is first written to the temperature sensor register, and then a read register command reads 2 bytes of data that contain the temperature. The 2 bytes are split into the MSB and LSB byte, where the MSB contains a signed bit. The equation \\(Temp = MSB + LSB/256.0\\) was used to extract the correct temperature from these bytes. This value is then included on the webpage and sent to the ESP8266 over UART.\n\nHardware Implementation\nThe system hardware included connection to the ESP8266 and temperature sensor. The ESP8266 was directly placed into the MikroBUS socket on the development board while the temperature sensor and LED were directly connected to the MCU pins."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#technical-documentation",
-    "href": "Labs/lab6/lab6.html#technical-documentation",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c, SPI configuration, temperature sensor configuration as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU, LED, ESP8266, and the temperature sensor.\n\n\n\nFigure 1: The image shows the schematic of the MCU connections with the peripherals."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#results-and-discussion",
-    "href": "Labs/lab6/lab6.html#results-and-discussion",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe system was able to correctly interface with the LED and temperature sensor through the HTML website. The website clearly displays the temperature sensor readings as well as buttons to select the resolution for the temperature sensor. The display shows how the temperature sensor readings get more precise as the resolution increases.\n\n\n\nSPI Logic Analyzer Trace\nA logic analyzer was used to debug and verify SPI communication.\n\nDO shows SPI chip select\nD1 shows the CLK\nD2 shows MISO (microcontroller in, peripheral out)\nD3 shows MOSI (microcontroller out, peripheral in)\n\nAfter the chip select goes high for the first time, the microcontroller sends 0x80, which indicates the address of the write config register, followed by 0xE0, which sets up an 8-bit temperature resolution. After the chip select goes high for the second time, the microcontroller sends 0x02 to read the MSB followed by 0x00 which is a filler command so that the microcontroller can receive data from the temperature sensor. The microcontroller receives 0x17 for the MSB. Then, the microcontroller sends 0x01 followed by a filler 0x00 command to read and receive the LSB from the temperature sensor. The microcontroller reads 0x00. Decoding the temperature results in \\(Temp = 23 + \\frac{0}{256} = 23 ^\\circ C\\)\n\n\n\nFigure 2: The image above shows the logic analyzer trace for an 8 bit temperature sensor command."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#conclusion",
-    "href": "Labs/lab6/lab6.html#conclusion",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "Conclusion",
-    "text": "Conclusion\nI was able to design a system that interfaces with a temperature sensor using SPI and ESP8266 using UART to create a webpage that controls and displays the temperature data! This lab took a total of 12 hours."
-  },
-  {
-    "objectID": "Labs/lab6/lab6.html#ai-prototype-summary",
-    "href": "Labs/lab6/lab6.html#ai-prototype-summary",
-    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor my AI prototype I asked ChatGPT these two prompts:\n\nI’m making a web portal to interface with a temperature sensor. Create a HTML page that looks good and is intuitive to show the temperature, control an LED, and change the precision of the readout.\nWrite me a C function to carry out a SPI transaction to retrieve a temperature reading from a DS1722 sensor. Make use of CMSIS libraries for the STM32L432KC.\n\nFor the first prompt ChatGPT produced a webpage that was a lot more aesthetically pleasing than mine, which included aspects such as different colors and font sizes. As for the second prompt ChatGPT was able to produce code for SPi communication, but it was incorrect. It got the phase for the temperature sensor wrong and wasn’t able to properly calculate the temperature reading."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html",
-    "href": "Labs/lab5/lab5.html",
-    "title": "Lab 5: Interrupts",
-    "section": "",
-    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#introduction",
-    "href": "Labs/lab5/lab5.html#introduction",
-    "title": "Lab 5: Interrupts",
-    "section": "",
-    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
-    "href": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
-    "title": "Lab 5: Interrupts",
-    "section": "MCU Design and Testing Methodology.",
-    "text": "MCU Design and Testing Methodology.\nThe design was developed by using interrupts. Interrupts were used both from the signals from the encoders and the timer.\nThe interrupt for the quad encoder signals would fire when the system recorded a signal from the B or A signal, where the design detected all edges of the encoder pulses to achieve high resolution. The current state on the encoder would update respectively. A lookup table was implemented in order to create the counter logic, indicating when the encoder has changed states. The lookup table starts with 4 bits indicating the next state transitions from 00, where 0 represents an illegal state switch, 1 represents clockwise increase, and -1 represents counterclockwise decrease. The following 4 bits indicate the next state transitions for 01, then 10, and ending with 11. The indexing of the lookup table relies on the previous state shifted left two bits and the current state in the two least significant bits. The values from the lookup table are then added to the encoder count and the previous state gets the current state.\nThe interrupt for the timer fires every millisecond and once it counts to 1000 ms (1 second), the count difference is calculated and used to calculate the revolutions per second. The count difference is divided by 1632 because the design is decoding the rising and falling edges of A and B (4 total), and since the motor has 408 pulses per rotation. The rps is printed out every second and the timer resets to begin sampling again.\n\nHardware Implementation\nThe layout of the system was fairly simple. The MCU was directly connected to the pins of the motor, no external breadboarding was required."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#technical-documentation",
-    "href": "Labs/lab5/lab5.html#technical-documentation",
-    "title": "Lab 5: Interrupts",
-    "section": "Technical Documentation",
-    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c file as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU and the motor.\n\n\n\nFigure 1: The image shows the schematic of the digital audio hardware system.\n\n\nThe flow chart below shows how interrupts are handled in the system."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#results-and-discussion",
-    "href": "Labs/lab5/lab5.html#results-and-discussion",
-    "title": "Lab 5: Interrupts",
-    "section": "Results and Discussion",
-    "text": "Results and Discussion\nThe system was able to correctly calculate the angular velocity of the motor in both the clockwise and counter clockwise directions. When the supply voltage was 10V, the print in the debugger read around +- 2 rev/s (depending on the direction). Additionally, the ancular velocity increased and decreased in respones to voltage supplied to the motor and read 0 when the power supply was off.\n\nOscilloscope Interrupt Pin Toggling\nIn order to observe the tradeoffs between using interrupts and polling to measure the angular velocity, I wrote some code for polling so I can toggle a pin for both to compare the toggling frequency for interrupts and polling.\nThe oscilloscope trace for interrupts shows a frequency of 2.4kHz, indicating the speed in which the interrupts are occurring. This means that for the polling to be able to sample all the encoder state changes, it must be sampling at least 4.8kHz (two times the frequency of the interrupts) to sample all the state changes and avoid aliasing. \nThe oscilloscope trace for the polling shows are frequency of 2.20kHz as well as some breaks in the squre waves. This is likely because the system is polling too slowly to detect all the state changes."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#conclusion",
-    "href": "Labs/lab5/lab5.html#conclusion",
-    "title": "Lab 5: Interrupts",
-    "section": "Conclusion",
-    "text": "Conclusion\nI was able to design a system using interrupts to calculate the angular velocity of a motor using the rising and falling edges of the encoders! This lab took a total of 8 hours."
-  },
-  {
-    "objectID": "Labs/lab5/lab5.html#ai-prototype-summary",
-    "href": "Labs/lab5/lab5.html#ai-prototype-summary",
-    "title": "Lab 5: Interrupts",
-    "section": "AI Prototype Summary",
-    "text": "AI Prototype Summary\nFor my AI prototype, I prompted ChatGPT with: Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?\nChatGPT responded with the correct pins that can be used to connect the encoder to trigger interrupts, howevever, the interrupt handlers did not run. ChatGPT suggested that I use the TIM encoder mode and to not use EXTI/GPIO interrupts unless they were necessary. I found this interesting since I was using EXTI interrupts in this lab and thought that they did they job well."
   },
   {
     "objectID": "Labs/lab3/lab3.html",
@@ -315,18 +63,249 @@
     "text": "AI Prototype Summary\nFor this AI Prototype, I prompted ChatGPT to write SystemVerilog through several different prompts. The first prompt was monolithic (giving all the information at once) and the second was modular (breaking down the steps). The monolithic prompt generated a full design quickly, but it often blurred module boundaries, produced synthesis errors, and required more debugging. Breaking the task into modular prompts gave cleaner FSMs, improved readability, and made it easier to verify each piece before integration. The LLM’s use of enumerated states, always_ff, and glitch-free outputs was helpful, though keypad code mapping and active-low polarity sometimes needed correction. Overall, modularizing the prompts improved correctness and workflow efficiency, and in the future I would explicitly separate FSM responsibilities and clarify signal conventions upfront."
   },
   {
-    "objectID": "posts/Week1.html",
-    "href": "posts/Week1.html",
-    "title": "Week 1 Reflections",
+    "objectID": "Labs/lab5/lab5.html",
+    "href": "Labs/lab5/lab5.html",
+    "title": "Lab 5: Interrupts",
     "section": "",
-    "text": "This past week I was working on Lab 1 for E155. In this lab I learned a lot about soldering SMT components, which was very time consuming. Additionally, I became more familiar with the Lattice Radiant software environment while synthesizing and programming my FPGA. This lab also refreshed my memory for writing self-checking testbenches in Verilog as well as simulating my code in Questa. The logic for the LEDs and 7-segment display were very straight forward, so there was not too much debugging logic. The most common errors I ran into were syntax errors, files in the wrong directory, and the “FTDI Error” messages in Radiant. Overall, I am glad that all the components of my 7-segment display and LEDs are working!"
+    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
   },
   {
-    "objectID": "posts/initialBlog.html",
-    "href": "posts/initialBlog.html",
-    "title": "Initial Reflections",
+    "objectID": "Labs/lab5/lab5.html#introduction",
+    "href": "Labs/lab5/lab5.html#introduction",
+    "title": "Lab 5: Interrupts",
     "section": "",
-    "text": "Hey everyone! I am currently taking E155 this fall, and I am very excited about all the different labs and projects I will be working on. Over the course of this semester, I want to develop more skills and knowledge working with FPGAs and microcontrollers. I currently have more experience with digital design, so I also want to become more comfortable with analog design as well."
+    "text": "In this lab, I used an MCU in order to determine the speed of a motor by reading interrupts from quandrature encoder. Quandrature encoders measure the relative or absolute angle of a motor tracking how quickly the patterned disk added onto the motor rotates. Two sensors are 90 degrees of of phase to determine direction and speed of rotation with high resolution. The motor has 408 pulses per rotation and rotates at a speed of approximately 2 rev/s when 10V is supplied to the motor.\nThe main objective of this lab was to determine (and print out) the speed of the motor and direction, updating every 1Hz."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
+    "href": "Labs/lab5/lab5.html#mcu-design-and-testing-methodology.",
+    "title": "Lab 5: Interrupts",
+    "section": "MCU Design and Testing Methodology.",
+    "text": "MCU Design and Testing Methodology.\nThe design was developed by using interrupts. Interrupts were used both from the signals from the encoders and the timer.\nThe interrupt for the quad encoder signals would fire when the system recorded a signal from the B or A signal, where the design detected all edges of the encoder pulses to achieve high resolution. The current state on the encoder would update respectively. A lookup table was implemented in order to create the counter logic, indicating when the encoder has changed states. The lookup table starts with 4 bits indicating the next state transitions from 00, where 0 represents an illegal state switch, 1 represents clockwise increase, and -1 represents counterclockwise decrease. The following 4 bits indicate the next state transitions for 01, then 10, and ending with 11. The indexing of the lookup table relies on the previous state shifted left two bits and the current state in the two least significant bits. The values from the lookup table are then added to the encoder count and the previous state gets the current state.\nThe interrupt for the timer fires every millisecond and once it counts to 1000 ms (1 second), the count difference is calculated and used to calculate the revolutions per second. The count difference is divided by 1632 because the design is decoding the rising and falling edges of A and B (4 total), and since the motor has 408 pulses per rotation. The rps is printed out every second and the timer resets to begin sampling again.\n\nHardware Implementation\nThe layout of the system was fairly simple. The MCU was directly connected to the pins of the motor, no external breadboarding was required."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#technical-documentation",
+    "href": "Labs/lab5/lab5.html#technical-documentation",
+    "title": "Lab 5: Interrupts",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c file as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU and the motor.\n\n\n\nFigure 1: The image shows the schematic of the digital audio hardware system.\n\n\nThe flow chart below shows how interrupts are handled in the system."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#results-and-discussion",
+    "href": "Labs/lab5/lab5.html#results-and-discussion",
+    "title": "Lab 5: Interrupts",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe system was able to correctly calculate the angular velocity of the motor in both the clockwise and counter clockwise directions. When the supply voltage was 10V, the print in the debugger read around +- 2 rev/s (depending on the direction). Additionally, the ancular velocity increased and decreased in respones to voltage supplied to the motor and read 0 when the power supply was off.\n\nOscilloscope Interrupt Pin Toggling\nIn order to observe the tradeoffs between using interrupts and polling to measure the angular velocity, I wrote some code for polling so I can toggle a pin for both to compare the toggling frequency for interrupts and polling.\nThe oscilloscope trace for interrupts shows a frequency of 2.4kHz, indicating the speed in which the interrupts are occurring. This means that for the polling to be able to sample all the encoder state changes, it must be sampling at least 4.8kHz (two times the frequency of the interrupts) to sample all the state changes and avoid aliasing. \nThe oscilloscope trace for the polling shows are frequency of 2.20kHz as well as some breaks in the squre waves. This is likely because the system is polling too slowly to detect all the state changes."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#conclusion",
+    "href": "Labs/lab5/lab5.html#conclusion",
+    "title": "Lab 5: Interrupts",
+    "section": "Conclusion",
+    "text": "Conclusion\nI was able to design a system using interrupts to calculate the angular velocity of a motor using the rising and falling edges of the encoders! This lab took a total of 8 hours."
+  },
+  {
+    "objectID": "Labs/lab5/lab5.html#ai-prototype-summary",
+    "href": "Labs/lab5/lab5.html#ai-prototype-summary",
+    "title": "Lab 5: Interrupts",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor my AI prototype, I prompted ChatGPT with: Write me interrupt handlers to interface with a quadrature encoder. I’m using the STM32L432KC, what pins should I connect the encoder to in order to allow it to easily trigger the interrupts?\nChatGPT responded with the correct pins that can be used to connect the encoder to trigger interrupts, howevever, the interrupt handlers did not run. ChatGPT suggested that I use the TIM encoder mode and to not use EXTI/GPIO interrupts unless they were necessary. I found this interesting since I was using EXTI interrupts in this lab and thought that they did they job well."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html",
+    "href": "Labs/lab6/lab6.html",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "",
+    "text": "In this lab, the objective was to design and build a simple IoT device, write C libraries to implement SPI on the MCU and interface with a temperature sensor, interface with a ESP8266 module using UART, and write an HTML page to control an LED and temperature sensor. The webpage allows users to select the output resolution for the temperature sensor and displays the temperature sensor reading. When selecting a specific resolution on the webpage, the MCU would then send the specific write and read commands to the temperature sensor."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#introduction",
+    "href": "Labs/lab6/lab6.html#introduction",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "",
+    "text": "In this lab, the objective was to design and build a simple IoT device, write C libraries to implement SPI on the MCU and interface with a temperature sensor, interface with a ESP8266 module using UART, and write an HTML page to control an LED and temperature sensor. The webpage allows users to select the output resolution for the temperature sensor and displays the temperature sensor reading. When selecting a specific resolution on the webpage, the MCU would then send the specific write and read commands to the temperature sensor."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#mcu-design-and-testing-methodology.",
+    "href": "Labs/lab6/lab6.html#mcu-design-and-testing-methodology.",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "MCU Design and Testing Methodology.",
+    "text": "MCU Design and Testing Methodology.\nThe MCU interface consisted of UART communication to the ESP8266 and SPI communication to the temperature sensor. Inputs for the temperature sensor inputs relied on values received by the MCU through UART.\nTo create the digital interface for the lab, the MCU must supply a webpage to the ESP8266 and interpret its requests. The 125000 baud serial UART connection on the MCU and UART TX and RX lines of the ESP8266 were used to interface between the devices. Therefore, the ESP8266 updates the webpage from the MCU, sending the most recent request from the user. The MCU then transmits a webpage encoded as an HTML file to the ESP8266. The ESP8266 creates a WIFI access point. Once connecting to the network, http://192.168.4.1/ displays the webpage.\nTemperature sensor resolution commands receieved from the user to the MCU are then used to determine the write and read commands sent to the temperature sensor over SPI. The number of resolution bits is first written to the temperature sensor register, and then a read register command reads 2 bytes of data that contain the temperature. The 2 bytes are split into the MSB and LSB byte, where the MSB contains a signed bit. The equation \\(Temp = MSB + LSB/256.0\\) was used to extract the correct temperature from these bytes. This value is then included on the webpage and sent to the ESP8266 over UART.\n\nHardware Implementation\nThe system hardware included connection to the ESP8266 and temperature sensor. The ESP8266 was directly placed into the MikroBUS socket on the development board while the temperature sensor and LED were directly connected to the MCU pins."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#technical-documentation",
+    "href": "Labs/lab6/lab6.html#technical-documentation",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for main.c, SPI configuration, temperature sensor configuration as well as external libraries used.\n\nSchematic\nThe schematic below depicts the connections between the MCU, LED, ESP8266, and the temperature sensor.\n\n\n\nFigure 1: The image shows the schematic of the MCU connections with the peripherals."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#results-and-discussion",
+    "href": "Labs/lab6/lab6.html#results-and-discussion",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe system was able to correctly interface with the LED and temperature sensor through the HTML website. The website clearly displays the temperature sensor readings as well as buttons to select the resolution for the temperature sensor. The display shows how the temperature sensor readings get more precise as the resolution increases.\n\n\n\nSPI Logic Analyzer Trace\nA logic analyzer was used to debug and verify SPI communication.\n\nDO shows SPI chip select\nD1 shows the CLK\nD2 shows MISO (microcontroller in, peripheral out)\nD3 shows MOSI (microcontroller out, peripheral in)\n\nAfter the chip select goes high for the first time, the microcontroller sends 0x80, which indicates the address of the write config register, followed by 0xE0, which sets up an 8-bit temperature resolution. After the chip select goes high for the second time, the microcontroller sends 0x02 to read the MSB followed by 0x00 which is a filler command so that the microcontroller can receive data from the temperature sensor. The microcontroller receives 0x17 for the MSB. Then, the microcontroller sends 0x01 followed by a filler 0x00 command to read and receive the LSB from the temperature sensor. The microcontroller reads 0x00. Decoding the temperature results in \\(Temp = 23 + \\frac{0}{256} = 23 ^\\circ C\\)\n\n\n\nFigure 2: The image above shows the logic analyzer trace for an 8 bit temperature sensor command."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#conclusion",
+    "href": "Labs/lab6/lab6.html#conclusion",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "Conclusion",
+    "text": "Conclusion\nI was able to design a system that interfaces with a temperature sensor using SPI and ESP8266 using UART to create a webpage that controls and displays the temperature data! This lab took a total of 12 hours."
+  },
+  {
+    "objectID": "Labs/lab6/lab6.html#ai-prototype-summary",
+    "href": "Labs/lab6/lab6.html#ai-prototype-summary",
+    "title": "Lab 6: The Internet of Things and Serial Peripheral Interface",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor my AI prototype I asked ChatGPT these two prompts:\n\nI’m making a web portal to interface with a temperature sensor. Create a HTML page that looks good and is intuitive to show the temperature, control an LED, and change the precision of the readout.\nWrite me a C function to carry out a SPI transaction to retrieve a temperature reading from a DS1722 sensor. Make use of CMSIS libraries for the STM32L432KC.\n\nFor the first prompt ChatGPT produced a webpage that was a lot more aesthetically pleasing than mine, which included aspects such as different colors and font sizes. As for the second prompt ChatGPT was able to produce code for SPi communication, but it was incorrect. It got the phase for the temperature sensor wrong and wasn’t able to properly calculate the temperature reading."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html",
+    "href": "Labs/lab1/lab1.html",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "",
+    "text": "In Lab 1, a development board containing a FPGA (UPduino v3.1) and MCU (mikroBUS_Socket) was soldered together. The objective of the lab was to program the FPGA with Verilog code that responds to 4 input DIP switches and outputs a specific seven segment display as well as three LED displays. Other learning outcomes of the lab consisted of soldering, testing, and debugging circuits and Verilog."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#introduction",
+    "href": "Labs/lab1/lab1.html#introduction",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "",
+    "text": "In Lab 1, a development board containing a FPGA (UPduino v3.1) and MCU (mikroBUS_Socket) was soldered together. The objective of the lab was to program the FPGA with Verilog code that responds to 4 input DIP switches and outputs a specific seven segment display as well as three LED displays. Other learning outcomes of the lab consisted of soldering, testing, and debugging circuits and Verilog."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#fpga-design-and-testing-methodology.",
+    "href": "Labs/lab1/lab1.html#fpga-design-and-testing-methodology.",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "FPGA Design and Testing Methodology.",
+    "text": "FPGA Design and Testing Methodology.\nThe following tables from the lab instructions establish the relationship between the various inputs and outputs on the development board.\n\n\n\nFigure 1: This table displays the inputs and outputs required in the FPGA design.\n\n\n\n\n\nFigure 2: This table defines the relationship between the input DIP switches and the led outputs.\n\n\nThe design was developed using a clock divider, boolean algebra, and multiplexers. The clock divider would create the 2.4Hz oscillating LED, the boolean algebra would select between the DIP switch input signals to determine the other LED outputs, and the multiplexers would select the corresponding segment outputs for the 7-segment display. The 7-segment displays all the hexidecimal digits distinctly.\nThe 7-segment display has a common anode, meaning that the cathode must be grounding in order to cause the LED to turn on. Therefore, the Verilog code would send a “0” to turn on a segment and a “1” to turn off a segment.\nThe outputs of the LEDs and 7-segment display would be verified using a self-checking testbench and an oscilloscope trace.\n\nHardware Implementation\nThe development board was assembled by soldering votage regulars, SMT components (resistors, capacitors, and LEDs), and various THT components. The schematic of the development board layout can be found here.\n\n\n\nFigure 3: This image depicts the completed development board.\n\n\n\n\n\nFigure 4: This image depicts the physical breadboard layout of the 7-segment display.\n\n\nThe resistors used in the 7-segment display were determined by looking at the segment luminous intensity and voltage drop in the datasheet. From the datasheet, the desired current for the display is 10mA and the voltage drop for the segment is 2.1V. Using the equation V = IR, the desired resistor value for the segment display can be determined. The 7-segment display was supplied 3.3V, so V = 3.3V - 2.1V = 1.2V. After solving for R (resistor value), R was equal to approximately 120Ω. In my design I used 220Ω resistors to ensure that the current drawn from each segment would be appropriate."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#technical-documentation",
+    "href": "Labs/lab1/lab1.html#technical-documentation",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe source code from this lab can be found in my Github repository. The code contains the two Verilog modules, 2 testbenches (one for each module), and 2 testvector files.\n\nBlock Diagram\nThe block diagram shows the 7-segment display Verilog module, the clock divider, and the overall top module for this lab.\n\n\n\nFigure 5: This image depicts the block diagram for the two Verilog modules\n\n\n\n\nSchematic\nThe schmatic outlines the FPGA pin assigments for the 4 DIP switches, LEDs, and 7-segment display.\n\n\n\nFigure 6: This image depicts the schematic for the FPGA and 7-segment display."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#results-and-discussion",
+    "href": "Labs/lab1/lab1.html#results-and-discussion",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe results of this lab were verified using an automatic testbench simulation on Questa and an oscilloscope trace to verify the LED oscillating frequency. The video below shows the 7-segment display and LEDs responding to DIP switch inputs.\n\n\nTestbench Simulation\n \nThe waveforms and transcript from the Questa simulation show that the expected outputs matched the outputs in the Verilog modules. All 16 tests were completed with no errors.\n\n\nOscilloscope Trace\nThe desired frequency for led[2] was 2.4Hz. The oscilloscope trace shows that the measured frequency for led[2] was 2.4Hz.\n\n\n\nFigure 8: This image depicts the oscilloscope trace of the LED. The frequency of the LED is shown on the bottom left."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#conclusion",
+    "href": "Labs/lab1/lab1.html#conclusion",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design meets all of the requirements for the lab. The development board is completely finished and put together, and the outputs for the 7-segment display and the LEDs all match the expected outputs. All the hexidecimal digits displayed on the 7-segment display are unique, and each segment has the same brightness.\nI spent a total number of 15 hours on this lab. A large amount of time in this lab was spent soldering as well as learning about the Lattice Radiant enviroment. There were many small errors I made along the way as well as specific details about Lattice Radiant that could have been helpful to know about in the Lab 1 description. A tip that could have been very helpful would be how to navigate the “FTDI Error” that occurs when trying to program the FPGA."
+  },
+  {
+    "objectID": "Labs/lab1/lab1.html#ai-prototype-summary",
+    "href": "Labs/lab1/lab1.html#ai-prototype-summary",
+    "title": "Lab 1: FPGA and MCU Setup and Testing",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI Prototype, I gave ChatGPT the following prompt: Write SystemVerilog HDL to leverage the internal high speed oscillator in the Lattice UP5K FPGA and blink an LED at 2 Hz. Take full advantage of SystemVerilog syntax, for example, using logic instead of wire and reg.\nThe code that ChatGPT generated included several local parameters in order to cause the LED to blint at 2Hz. I do think the code produced by ChatGPT included a lot of unnecessary parameters, and the logic could be improved/simplified. The output also provided lots of detailed comments about the code as well as information With more guidance and specificity, I do think that ChatGPT could generate better code. After providing more context, with another prompt, ChatGPT was able to produce better code.\nThe transcript of the chat, including the code generated, can be found here."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html",
+    "href": "Labs/lab2/lab2.html",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#introduction",
+    "href": "Labs/lab2/lab2.html#introduction",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "",
+    "text": "In this lab, I used time multiplexing to drive two 7-segment displays using a single set of FPGA I/O pins. Time multiplexing was used because the anode of the 7-segment displays required more current than the FPGA output could provide. The dual 7-segment display takes inputs from 2 DIP switches, each are 4 bits, and outputs the values from each input. Additionally, the sum of the digits are shown on a set of 5 LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "href": "Labs/lab2/lab2.html#fpga-design-and-testing-methodology.",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "FPGA Design and Testing Methodology.",
+    "text": "FPGA Design and Testing Methodology.\nThe design was developed using a clock divider that toggles the frequency, a mux that chooses which anode will be turned on, an adder that determines the sum of the inputs for the LED display, and the 7-segment display module created in Lab 1.\nSince 60Hz is the largest frequency that humans can process, I decided to toggle the counter at 80Hz so that the frequency would not be too fast that they numbers would bleed together.\nThe led display, 7-segment display, mux, and top module will all be verified using self-checking testbenches.\n\nHardware Implementation\n\n\n\nFigure 1: This image shows the breadboard layout of the dual 7-segment display as well the 5 LEDs connected to the FPGA.\n\n\nThe components of this lab consisted of the development board, a dual 7-segment display, 5 LEDs, two 2N3906 PNP transistors, and a DIP switch.\nWhen implementing the design onto the breadboard, 220Ω resistors were used to draw current from each segment of the dual 7-segment display. Since there was a PNP transistor connected to the anodes, there is a Vceast of 200mV. Additionally, there is a voltage drop from the LED segment of 1.8V. Using V = IR, (3.3V - 0.2V - 1.8V)/10mA = R, where R = 130Ω.\nThe resistors used to connect the base of the PNP transistor to the FPGA pins were 330Ω resistors. This value was calculated using V = IR, where V = 3.3V - 0.65V and Ic = 8mA. 0.65V is the base emitter saturation voltage found on the datasheet and 8mA is the current limit.\nFor the LEDs, the voltage drop for a red LED is approximately 2.1 V and the desired current is around 10mA. Using the equation V = IR, R = (3.3-2.1V)/20mA = 110. To ensure the proper current I used 220Ω resistors."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#technical-documentation",
+    "href": "Labs/lab2/lab2.html#technical-documentation",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the top module, led display module, mux module, and 7-segment display module in addition to the testbenches for all four modules.\n\nBlock Diagram\nThe block diagram below depicts how the input and internal signals are connected among the modules to produce the 7-segment display and LED outputs.\n\n\n\nFigure 2: This image shows the block diagram that connects all the modules.\n\n\n\n\nSchematic\nThe schematic below depicts the pin assignments for the hardware components.\n\n\n\nFigure 3: The image shows the schematic of the FPGA and the conections to the dual 7-segment display and LEDs."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#results-and-discussion",
+    "href": "Labs/lab2/lab2.html#results-and-discussion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nAll of the 7-segment display and led display outputs work as expected. This can be shown through simulation results as well as hardware performance.\n\nTestbench Simulation\nThe waveforms from the mux module simulation show that the mux is choosing the proper values for s[3:0], anode1, and anode2.\n \nThe waveforms from the led module show that the sum of the inputs s1[3:0] and s2[3:0] are properly summed and assigned to each bit of the LED display.  \nThe waveforms for the 7-segment display verify that the proper pattern of segments are lit up in response to the 4-bit input.  \nThe waveforms for the top module show that the values for anode1 and anode2 are toggling in response to the counter/select value at the correct frequency. As a result the simulation results indicate that the proper segment output is chosen."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#conclusion",
+    "href": "Labs/lab2/lab2.html#conclusion",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design successfully displayed the inputs on the dual 7-segment display through time multiplexing and added the values of the inputs to display on the 5 LEDS.\nThis lab took a total of 8 hours."
+  },
+  {
+    "objectID": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "href": "Labs/lab2/lab2.html#ai-prototype-summary",
+    "title": "Lab 2: Multiplexed 7-Segment Display",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: Write SystemVerilog HDL to time multiplex a single seven segment decoder (that decodes from four bits to a common anode seven segment display) to decode two sets of input bits and drive two sets of seven output bits.\nAfter evaluating the code that ChatGPT wrote, I think that the logic of it all looks pretty good. This main noticable error is the value for the 7-segment display outputs. They switching the order of the bits to read from lead significant to most significant. I do think that ChatGPT was able to produce this code well because the logic is fairly simple and straightforward.\nThe link to the conversation can be found here."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html",
+    "href": "Labs/lab4/lab4.html",
+    "title": "Lab 4: Digital Audio",
+    "section": "",
+    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#introduction",
+    "href": "Labs/lab4/lab4.html#introduction",
+    "title": "Lab 4: Digital Audio",
+    "section": "",
+    "text": "In this lab, I used the timers in an STM32L432KC microcontroller to generate square waves by toggling a GPIO pin at specific frequencies and durations. These frequencies and durations were used to create digital audio. This involved reading and understanding the MCU datasheet in order to write a C library from scratch."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
+    "href": "Labs/lab4/lab4.html#mcu-design-and-testing-methodology.",
+    "title": "Lab 4: Digital Audio",
+    "section": "MCU Design and Testing Methodology.",
+    "text": "MCU Design and Testing Methodology.\nThe design was developed by using two timers on the MCU: TIM16 and TIM6. TIM16 was used to create a PWM signal for the frequencies while TIM6 was used to calculate the delay in ms.\nThe maximum and minimum frequencies and durations for the system were calculated below. TIM16 used a prescalar value of 19 in order to divide the system clock into a 4MHz clock and TIM6 used a prescalar value of 39,999 in order to divide the system clock into a 2KHz clock.\nIn addition to calculations, the frequency of the square waves will be verified using the oscilloscope.\n\n\n\nFigure 1: This image shows the frequency and duration calculations.\n\n\nThis image shows that the pitches for frequencies in the range 220-1000 Hz, as well as a couple frequencies above and below are accurate within 1%. \n\nHardware Implementation\n\n\n\nFigure 3: This image shows the breadboard layout speaker system.\n\n\nThe components of this lab consisted of a LM386 op-amp, a 10kΩ potentiometer, and a 8Ω speaker. The op-amp was implemented to amplify the output signal from the MCU pin (PA6) and the potentiometer was used to adjust the volume of the system."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#technical-documentation",
+    "href": "Labs/lab4/lab4.html#technical-documentation",
+    "title": "Lab 4: Digital Audio",
+    "section": "Technical Documentation",
+    "text": "Technical Documentation\nThe code for this lab can be found in this Github repository. This contains the code for the C and Header files for the main module, RCC, GPIO, FLASH, TIM6, and TIM16.\n\nSchematic\nThe schematic below depicts the pin assignments and connections for the MCU, potentiometer, op-amp, and speaker system.\n\n\n\nFigure 3: The image shows the schematic of the digital audio hardware system."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#results-and-discussion",
+    "href": "Labs/lab4/lab4.html#results-and-discussion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Results and Discussion",
+    "text": "Results and Discussion\nThe digital audio system was able to play Fur Elise without sounding very crackly. Additionally, I was able to transpose a melody from one of my favorite jazz songs. Try to guess the song!\n\n\n\n\n\nFigure 5: This image shows the melody of the mystery song.\n\n\n\nOscilloscope Frequency Verification\nIn order to verify the frequencies produced by my design, I measured the frequency of the PA6 pin. To test the range of frequncies, I decided to test 200 Hz and 2000 Hz.\nThe oscilloscope trace of the 200 Hz PWM input, shows a square wave output from the PA6 pin where the output frequency is exactly 200 Hz! \nThe oscilloscope trace for the 2000 Hz PWM input showed the expected output of 2000 Hz. This shows that the design was able to accurately output frequencies less than 1%"
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#conclusion",
+    "href": "Labs/lab4/lab4.html#conclusion",
+    "title": "Lab 4: Digital Audio",
+    "section": "Conclusion",
+    "text": "Conclusion\nThe design was successfully able to produce square waves at different frequencies using the timers and pins on the MCU. It was super exciting to hear the the songs play smoothly. For a while, I was able to hear my songs play but they sounded very crackly. I thought it was because my code for the frequency was incorrect, but I figured out that it was because my op-amp pins weren’t grounded.\nThis lab took a total of 12 hours."
+  },
+  {
+    "objectID": "Labs/lab4/lab4.html#ai-prototype-summary",
+    "href": "Labs/lab4/lab4.html#ai-prototype-summary",
+    "title": "Lab 4: Digital Audio",
+    "section": "AI Prototype Summary",
+    "text": "AI Prototype Summary\nFor the AI prototype, I prompted ChatGPT with: What timers should I use on the STM32L432KC to generate frequencies ranging from 220Hz to 1kHz? What’s the best choice of timer if I want to easily connect it to a GPIO pin? What formulae are relevant, and what registers need to be set to configure them properly?\nThe response that I got from ChatGPT was very helpful because it provided me a list of all the timers with descriptions for their purposes. It also generated the timer frequency formula and provided an example calculation."
   },
   {
     "objectID": "index.html",
