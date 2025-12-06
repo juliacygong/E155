@@ -1,0 +1,11 @@
+---
+title: "Final Project"
+
+
+---
+
+For the final project in E155, we needed to integrate the MCU and FPGA to create a design of our choice. I was interested creating a larger digital design on the FPGA to learn more about implementing algorithms in hardware, resource usage, and crossing clock domains. 
+
+My partner and I chose to make a live music transcriber, where we could sample analog inputs from a microphone using the MCU's internal ADC, and then send the samples through SPI to the FPGA to process the FFT, decode the note and duration, and display the note on a score using VGA. 
+
+Visit this [website](https://juliacygong.github.io/E155-project-website/) to learn more about our design!
